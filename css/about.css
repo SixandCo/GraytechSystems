@@ -3,28 +3,53 @@
    ============================================ */
 
 /* ============================================
-   ABOUT HERO - WITH IMAGE
+   ABOUT HERO - PREMIUM BUT NOT OVERWHELMING
    ============================================ */
 .about-hero {
   position: relative;
   min-height: 420px;
+  max-height: 550px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 60px 40px 80px;
   background: #030712;
+  padding: 0;
 }
 
+/* BACKGROUND LIGHT (DEPTH) */
 .about-hero .hero-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 80% at 75% 50%, rgba(20, 60, 180, 0.3) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 40% at 85% 15%, rgba(59, 130, 246, 0.2) 0%, transparent 60%);
+  z-index: 1;
+  background: radial-gradient(
+    circle at 70% 50%, 
+    rgba(59, 130, 246, 0.2), 
+    transparent 60%
+  );
+  pointer-events: none;
 }
 
-/* HERO IMAGE - Same as homepage */
+/* NETWORK GLOW EFFECT - Subtle dots */
+.about-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 75% 40%, rgba(96, 165, 250, 0.6) 2px, transparent 2px),
+    radial-gradient(circle at 85% 55%, rgba(96, 165, 250, 0.4) 2px, transparent 2px),
+    radial-gradient(circle at 70% 65%, rgba(255, 170, 50, 0.5) 2px, transparent 2px);
+  background-repeat: no-repeat;
+  z-index: 1;
+  animation: pulseSubtle 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pulseSubtle {
+  from { opacity: 0.3; }
+  to { opacity: 0.7; }
+}
+
+/* HERO IMAGE - Full immersive but softer */
 .about-hero .hero-image {
   position: absolute;
   top: 0;
@@ -39,11 +64,17 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.5;
-  filter: brightness(0.7) contrast(1.2);
+  opacity: 0.45;
+  filter: brightness(0.7) contrast(1.1);
+  animation: slowZoom 25s ease-in-out infinite alternate;
 }
 
-/* Fade overlay for image */
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+/* FADE OVERLAY - Blends image into dark background */
 .about-hero .hero-image::after {
   content: '';
   position: absolute;
@@ -58,25 +89,31 @@
   pointer-events: none;
 }
 
-.hero-inner {
+/* CONTENT ABOVE EVERYTHING */
+.about-hero .hero-container {
   position: relative;
   z-index: 2;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 40px;
+}
+
+.about-hero .hero-content {
+  max-width: 520px;
 }
 
 .breadcrumb-trail {
   font-size: 13px;
-  color: var(--gray);
-  margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .breadcrumb-trail a {
-  color: var(--gray);
+  color: rgba(255, 255, 255, 0.4);
   transition: color 0.2s;
 }
 
@@ -88,12 +125,8 @@
   color: var(--white);
 }
 
-.about-hero .hero-content {
-  max-width: 550px;
-}
-
 .about-hero h1 {
-  font-size: clamp(36px, 5vw, 56px);
+  font-size: clamp(32px, 4vw, 48px);
   font-weight: 800;
   letter-spacing: -1px;
   line-height: 1.08;
@@ -101,27 +134,27 @@
 }
 
 .about-hero h2 {
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: clamp(17px, 1.5vw, 22px);
   font-weight: 600;
   color: var(--cyan);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .about-hero p {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.7;
-  max-width: 500px;
+  max-width: 460px;
 }
 
 /* ============================================
-   STATS GRID - WITH PROPER SPACING
+   STATS GRID
    ============================================ */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0;
-  margin: -40px 40px 0;
+  margin: -30px 40px 0;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -131,7 +164,7 @@
 }
 
 .stat-item {
-  padding: 32px 24px;
+  padding: 28px 24px;
   text-align: center;
   border-right: 1px solid var(--border);
 }
@@ -141,26 +174,26 @@
 }
 
 .stat-icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: rgba(59, 130, 246, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px;
+  margin: 0 auto 10px;
 }
 
 .stat-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   stroke: var(--cyan);
   fill: none;
   stroke-width: 1.8;
 }
 
 .stat-value {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 4px;
@@ -168,29 +201,29 @@
 }
 
 .stat-label {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--gray);
   font-weight: 500;
 }
 
 /* ============================================
-   STORY SECTION
+   STORY SECTION - WITH IMAGE
    ============================================ */
 .story-section {
-  padding: 80px 40px 60px;
+  padding: 72px 40px 56px;
 }
 
 .story-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 50px;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .story-text h2 {
-  font-size: clamp(28px, 3.5vw, 38px);
+  font-size: clamp(26px, 3vw, 36px);
   font-weight: 700;
   letter-spacing: -0.5px;
   margin-bottom: 16px;
@@ -211,7 +244,7 @@
   margin: 16px 0 20px;
 }
 
-/* Server Rack Illustration */
+/* Story Image - Using about-1.png */
 .story-img {
   border-radius: 14px;
   overflow: hidden;
@@ -224,74 +257,27 @@
   border: 1px solid var(--border);
 }
 
-.story-img::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(59, 130, 246, 0.05) 18px, rgba(59, 130, 246, 0.05) 20px),
-    repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(59, 130, 246, 0.03) 18px, rgba(59, 130, 246, 0.03) 20px);
-}
-
-.racks-row {
-  display: flex;
-  gap: 16px;
-  align-items: flex-end;
-  position: relative;
-  z-index: 1;
-}
-
-.server-rack {
-  width: 72px;
-  height: 120px;
-  background: rgba(10, 20, 50, 0.9);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px;
-}
-
-.server-rack.tall {
-  height: 160px;
-}
-
-.server-unit {
-  height: 10px;
-  background: rgba(59, 130, 246, 0.15);
-  border-radius: 3px;
-  position: relative;
-}
-
-.server-unit::after {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
+.story-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ============================================
    VALUES SECTION
    ============================================ */
 .values-section {
-  padding: 0 40px 64px;
+  padding: 0 40px 56px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .values-section h2 {
-  font-size: clamp(28px, 3.5vw, 38px);
+  font-size: clamp(26px, 3vw, 36px);
   font-weight: 700;
   letter-spacing: -0.5px;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .values-grid {
@@ -304,7 +290,7 @@
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 28px 20px 24px;
+  padding: 24px 16px 20px;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -315,26 +301,26 @@
 }
 
 .value-icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: rgba(59, 130, 246, 0.08);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px;
+  margin: 0 auto 10px;
 }
 
 .value-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   stroke: var(--cyan);
   fill: none;
   stroke-width: 1.8;
 }
 
 .value-card h3 {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   margin-bottom: 6px;
 }
@@ -353,7 +339,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   max-width: 1200px;
-  margin: 0 auto 64px;
+  margin: 0 auto 56px;
   padding: 0 40px;
 }
 
@@ -361,9 +347,9 @@
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 32px 28px;
+  padding: 28px 24px;
   display: flex;
-  gap: 20px;
+  gap: 18px;
   align-items: flex-start;
   transition: transform 0.3s;
 }
@@ -373,8 +359,8 @@
 }
 
 .mv-icon {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   background: rgba(59, 130, 246, 0.08);
   border-radius: 50%;
   display: flex;
@@ -384,15 +370,15 @@
 }
 
 .mv-icon svg {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   stroke: var(--cyan);
   fill: none;
   stroke-width: 1.8;
 }
 
 .mv-card h3 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 6px;
 }
@@ -407,12 +393,17 @@
    RESPONSIVE - ABOUT PAGE
    ============================================ */
 @media (max-width: 1024px) {
+  .about-hero {
+    max-height: none;
+    min-height: 380px;
+  }
+
   .about-hero .hero-image {
     width: 65%;
   }
 
   .stats-grid {
-    margin: -30px 20px 0;
+    margin: -25px 20px 0;
   }
 
   .values-grid {
@@ -422,14 +413,19 @@
 
 @media (max-width: 768px) {
   .about-hero {
-    padding: 40px 20px 60px;
-    min-height: 300px;
+    min-height: 340px;
+    padding: 60px 0 50px;
   }
 
   .about-hero .hero-image {
     width: 100%;
     height: 100%;
     opacity: 0.3;
+  }
+
+  .about-hero .hero-image img {
+    opacity: 1;
+    filter: brightness(0.5) contrast(1.2);
   }
 
   .about-hero .hero-image::after {
@@ -442,25 +438,35 @@
     );
   }
 
-  .about-hero h1 {
-    font-size: 32px;
-  }
-
-  .about-hero h2 {
-    font-size: 18px;
-  }
-
-  .about-hero p {
-    font-size: 15px;
+  .about-hero .hero-container {
+    padding: 0 20px;
   }
 
   .about-hero .hero-content {
     max-width: 100%;
+    text-align: center;
+  }
+
+  .about-hero h1 {
+    font-size: 30px;
+  }
+
+  .about-hero h2 {
+    font-size: 17px;
+  }
+
+  .about-hero p {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .breadcrumb-trail {
+    justify-content: center;
   }
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    margin: -20px 20px 0;
+    margin: -16px 20px 0;
   }
 
   .stat-item:nth-child(2) {
@@ -473,16 +479,20 @@
   }
 
   .stat-value {
-    font-size: 28px;
+    font-size: 24px;
+  }
+
+  .stat-item {
+    padding: 20px 16px;
   }
 
   .story-section {
-    padding: 60px 20px 40px;
+    padding: 48px 20px 40px;
   }
 
   .story-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
   }
 
   .story-img {
@@ -490,7 +500,7 @@
   }
 
   .values-section {
-    padding: 0 20px 48px;
+    padding: 0 20px 40px;
   }
 
   .values-grid {
@@ -499,63 +509,52 @@
   }
 
   .value-card {
-    padding: 20px 16px;
+    padding: 18px 14px;
   }
 
   .mv-grid {
     grid-template-columns: 1fr;
     padding: 0 20px;
-    margin: 0 auto 48px;
+    margin: 0 auto 40px;
   }
 
   .mv-card {
-    padding: 24px 20px;
-  }
-
-  .server-rack {
-    width: 56px;
-    height: 100px;
-  }
-
-  .server-rack.tall {
-    height: 130px;
-  }
-
-  .racks-row {
-    gap: 12px;
+    padding: 20px 18px;
+    gap: 14px;
   }
 }
 
 @media (max-width: 480px) {
   .about-hero {
-    padding: 32px 16px 48px;
+    min-height: 300px;
+    padding: 50px 0 40px;
   }
 
   .about-hero h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .stats-grid {
     grid-template-columns: 1fr 1fr;
-    margin: -16px 16px 0;
+    margin: -12px 16px 0;
   }
 
   .stat-item {
-    padding: 20px 16px;
+    padding: 16px 12px;
   }
 
   .stat-value {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .stat-icon {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
   }
 
   .stat-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 
   .values-grid {
@@ -564,7 +563,7 @@
   }
 
   .value-card {
-    padding: 16px 12px;
+    padding: 14px 10px;
   }
 
   .value-card h3 {
@@ -577,22 +576,7 @@
     text-align: center;
   }
 
-  .server-rack {
-    width: 44px;
-    height: 80px;
-    padding: 6px;
-    gap: 6px;
-  }
-
-  .server-rack.tall {
-    height: 100px;
-  }
-
-  .server-unit {
-    height: 8px;
-  }
-
-  .racks-row {
-    gap: 8px;
+  .story-img {
+    height: 160px;
   }
 }

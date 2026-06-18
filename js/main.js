@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================================
   // ACTIVE NAV LINK
   // ============================================
-  const navLinks = document.querySelectorAll('.nav-links a');
+  const navLinks = document.querySelectorAll('.nav-links a:not(.btn-whatsapp-nav)');
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
     if (href === currentPage || 
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
     
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', function() {
+    navLinks.querySelectorAll('a, .mobile-logo').forEach(el => {
+      el.addEventListener('click', function() {
         navLinks.classList.remove('mobile-open');
         hamburger.classList.remove('active');
         document.body.style.overflow = '';
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================================
   // SMOOTH SCROLL FOR INTERNAL LINKS
   // ============================================
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a[href^="#"]:not(.modal-trigger)').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
@@ -91,45 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-
-  // ============================================
-  // BUTTON INTERACTIONS
-  // ============================================
-  const quoteButtons = document.querySelectorAll('.btn-quote, .btn-outline');
-  quoteButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      showToast('Quote form coming soon!');
-    });
-  });
-  
-  const coverageButtons = document.querySelectorAll('.btn-primary, .btn-coverage');
-  coverageButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      showToast('Coverage checker coming soon!');
-    });
-  });
-  
-  const learnButton = document.querySelector('.btn-learn');
-  if (learnButton) {
-    learnButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      showToast('Referral program details coming soon!');
-    });
-  }
-
-  // ============================================
-  // WHATSAPP FAB
-  // ============================================
-  const whatsappFab = document.querySelector('.whatsapp-fab');
-  if (whatsappFab) {
-    whatsappFab.addEventListener('click', function() {
-      const phoneNumber = '27712344476';
-      const message = encodeURIComponent('Hi GrayTech Systems, I would like to get a quote.');
-      window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-    });
-  }
 
   // ============================================
   // TOAST NOTIFICATION SYSTEM
@@ -297,6 +258,277 @@ document.addEventListener('DOMContentLoaded', function() {
     
     button.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ============================================
+  // QUOTE MODAL FUNCTIONALITY
+  // ============================================
+
+  // Modal triggers
+  document.querySelectorAll('.modal-trigger').forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modal = document.getElementById('quote-modal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Focus first input
+        setTimeout(() => {
+          const firstInput = modal.querySelector('input:not([type="hidden"])');
+          if (firstInput) firstInput.focus();
+        }, 300);
+      }
+    });
+  });
+
+  // Modal close buttons
+  document.querySelectorAll('.modal-close, .modal-close-success').forEach(btn => {
+    btn.addEventListener('click', function() {
+      closeModal();
+    });
+  });
+
+  // Close modal on overlay click
+  const modal = document.getElementById('quote-modal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('quote-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      // Reset form if success was shown
+      const form = document.getElementById('quoteForm');
+      const success = document.getElementById('quoteSuccess');
+      if (form) form.style.display = 'block';
+      if (success) success.style.display = 'none';
+      // Reset form errors
+      document.querySelectorAll('#quoteForm .error').forEach(el => el.classList.remove('error'));
+      document.querySelectorAll('#quoteForm .success').forEach(el => el.classList.remove('success'));
+      document.querySelectorAll('#quoteForm .error-message.visible').forEach(el => el.classList.remove('visible'));
+      // Reset status
+      const status = document.getElementById('quoteFormStatus');
+      if (status) {
+        status.className = 'form-status';
+        status.textContent = '';
+      }
+    }
+  }
+
+  // ============================================
+  // QUOTE FORM HANDLING - Production Ready
+  // ============================================
+
+  const quoteForm = document.getElementById('quoteForm');
+  if (quoteForm) {
+    // Real-time validation on blur
+    const validateField = {
+      name: function(value) {
+        return value.trim().length >= 2;
+      },
+      email: function(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+      },
+      phone: function(value) {
+        return /^[0-9+\s\-()]{10,15}$/.test(value.trim());
+      },
+      message: function(value) {
+        return value.trim().length >= 10;
+      }
+    };
+
+    document.querySelectorAll('#quoteForm input, #quoteForm textarea').forEach(input => {
+      input.addEventListener('blur', function() {
+        const fieldName = this.id.replace('quote', '').toLowerCase();
+        const validator = validateField[fieldName];
+        const errorEl = document.getElementById(this.id + 'Error');
+        
+        if (validator && errorEl) {
+          const isValid = validator(this.value);
+          if (this.value.trim() && !isValid) {
+            this.classList.add('error');
+            this.classList.remove('success');
+            errorEl.classList.add('visible');
+          } else if (this.value.trim() && isValid) {
+            this.classList.remove('error');
+            this.classList.add('success');
+            errorEl.classList.remove('visible');
+          } else {
+            this.classList.remove('error');
+            this.classList.remove('success');
+            errorEl.classList.remove('visible');
+          }
+        }
+      });
+
+      input.addEventListener('input', function() {
+        // Clear error on typing
+        const errorEl = document.getElementById(this.id + 'Error');
+        if (errorEl) {
+          errorEl.classList.remove('visible');
+          this.classList.remove('error');
+        }
+      });
+    });
+
+    // Form submission
+    quoteForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const submitBtn = document.getElementById('quoteSubmit');
+      const status = document.getElementById('quoteFormStatus');
+      const successDiv = document.getElementById('quoteSuccess');
+      
+      let isValid = true;
+      
+      // Name validation
+      const name = document.getElementById('quoteName');
+      const nameError = document.getElementById('quoteNameError');
+      if (name.value.trim().length < 2) {
+        name.classList.add('error');
+        nameError.classList.add('visible');
+        isValid = false;
+      } else {
+        name.classList.remove('error');
+        name.classList.add('success');
+        nameError.classList.remove('visible');
+      }
+      
+      // Email validation
+      const email = document.getElementById('quoteEmail');
+      const emailError = document.getElementById('quoteEmailError');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim())) {
+        email.classList.add('error');
+        emailError.classList.add('visible');
+        isValid = false;
+      } else {
+        email.classList.remove('error');
+        email.classList.add('success');
+        emailError.classList.remove('visible');
+      }
+      
+      // Phone validation
+      const phone = document.getElementById('quotePhone');
+      const phoneError = document.getElementById('quotePhoneError');
+      const phoneRegex = /^[0-9+\s\-()]{10,15}$/;
+      if (!phoneRegex.test(phone.value.trim())) {
+        phone.classList.add('error');
+        phoneError.classList.add('visible');
+        isValid = false;
+      } else {
+        phone.classList.remove('error');
+        phone.classList.add('success');
+        phoneError.classList.remove('visible');
+      }
+      
+      // Message validation
+      const message = document.getElementById('quoteMessage');
+      const messageError = document.getElementById('quoteMessageError');
+      if (message.value.trim().length < 10) {
+        message.classList.add('error');
+        messageError.classList.add('visible');
+        isValid = false;
+      } else {
+        message.classList.remove('error');
+        message.classList.add('success');
+        messageError.classList.remove('visible');
+      }
+      
+      // Consent validation
+      const consent = document.getElementById('quoteConsent');
+      const consentError = document.getElementById('quoteConsentError');
+      if (!consent.checked) {
+        consentError.classList.add('visible');
+        isValid = false;
+      } else {
+        consentError.classList.remove('visible');
+      }
+      
+      if (!isValid) {
+        const firstError = form.querySelector('.error');
+        if (firstError) firstError.focus();
+        // Show error toast
+        showToast('Please fix the errors above before submitting.', 'error');
+        return;
+      }
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitBtn.querySelector('span').textContent = 'Submitting...';
+      status.className = 'form-status';
+      status.textContent = '';
+      
+      // Collect data
+      const formData = {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        phone: phone.value.trim(),
+        service: document.getElementById('quoteService').value,
+        message: message.value.trim(),
+        consent: consent.checked,
+        timestamp: new Date().toISOString(),
+        source: window.location.href
+      };
+      
+      // Send to backend
+      fetch('api/quote.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Show success
+          form.style.display = 'none';
+          successDiv.style.display = 'block';
+          document.getElementById('quoteConfirmEmail').textContent = formData.email;
+          document.getElementById('quoteConfirmReference').textContent = 'QTS-' + Date.now().toString().slice(-6);
+          
+          // Track conversion
+          if (window.gtag) {
+            gtag('event', 'quote_submission', {
+              'service': formData.service,
+              'email': formData.email
+            });
+          }
+          
+          // Show success toast
+          showToast('Quote request submitted successfully!', 'success');
+        } else {
+          status.className = 'form-status error';
+          status.textContent = data.message || 'There was an error. Please try again.';
+          showToast(data.message || 'There was an error. Please try again.', 'error');
+        }
+      })
+      .catch(error => {
+        console.error('Quote submission error:', error);
+        status.className = 'form-status error';
+        status.textContent = 'Network error. Please check your connection and try again.';
+        showToast('Network error. Please check your connection and try again.', 'error');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.querySelector('span').textContent = 'Submit Quote Request';
+      });
     });
   }
 

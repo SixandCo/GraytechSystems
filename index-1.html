@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GrayTech Systems – Reliable Internet. Built for Performance.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0a0f1e;
+    --navy2:  #0d1428;
+    --card:   #0f1a35;
+    --blue:   #1a4fd6;
+    --blue-lt:#2563eb;
+    --accent: #3b82f6;
+    --cyan:   #60a5fa;
+    --white:  #ffffff;
+    --gray:   #94a3b8;
+    --border: rgba(59,130,246,0.25);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    line-height: 1.6;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .logo { display: flex; flex-direction: column; line-height: 1; }
+  .logo-top { display: flex; align-items: center; gap: 6px; }
+  .logo-top svg { width: 22px; height: 22px; }
+  .logo-brand { font-size: 20px; font-weight: 800; letter-spacing: .5px; }
+  .logo-brand span { color: var(--cyan); }
+  .logo-sub { font-size: 9px; letter-spacing: 4px; color: var(--gray); margin-top: 2px; }
+
+  .nav-links { display: flex; align-items: center; gap: 28px; font-size: 14px; font-weight: 500; }
+  .nav-links a { color: var(--white); opacity: .85; transition: opacity .2s; }
+  .nav-links a:hover { opacity: 1; }
+
+  .btn-quote {
+    background: transparent;
+    border: 1.5px solid var(--white);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .btn-quote:hover { background: var(--white); color: var(--navy); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 60px 40px 80px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(30,80,200,0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(59,130,246,0.3) 0%, transparent 60%),
+      linear-gradient(135deg, #050c1a 0%, #0a1535 40%, #061030 100%);
+    z-index: 0;
+  }
+
+  /* network dot/line decoration */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle 2px at 60% 18%, rgba(96,165,250,.9) 0%, transparent 100%),
+      radial-gradient(circle 2px at 78% 30%, rgba(96,165,250,.8) 0%, transparent 100%),
+      radial-gradient(circle 2px at 90% 20%, rgba(96,165,250,.7) 0%, transparent 100%),
+      radial-gradient(circle 2px at 68% 45%, rgba(96,165,250,.9) 0%, transparent 100%),
+      radial-gradient(circle 2px at 85% 55%, rgba(96,165,250,.7) 0%, transparent 100%),
+      radial-gradient(circle 2px at 55% 60%, rgba(96,165,250,.6) 0%, transparent 100%),
+      radial-gradient(circle 3px at 72% 70%, rgba(255,170,50,.8) 0%, transparent 100%),
+      radial-gradient(circle 3px at 92% 65%, rgba(255,170,50,.7) 0%, transparent 100%),
+      radial-gradient(circle 1.5px at 63% 33%, rgba(96,165,250,.5) 0%, transparent 100%);
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 520px; }
+  .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.1; margin-bottom: 8px; }
+  .hero h1 .blue { color: var(--cyan); }
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,.75); margin-bottom: 32px; max-width: 340px; }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--blue-lt);
+    color: var(--white);
+    border: none;
+    padding: 13px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .btn-primary:hover { background: #1d4ed8; }
+
+  .btn-outline {
+    display: flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,.5);
+    padding: 13px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,.08); }
+
+  /* ── TRUST BADGES ── */
+  .trust-bar {
+    position: relative; z-index: 1;
+    display: flex;
+    gap: 36px;
+    margin-top: 52px;
+    flex-wrap: wrap;
+  }
+
+  .trust-item { display: flex; align-items: center; gap: 10px; font-size: 12px; color: rgba(255,255,255,.7); }
+  .trust-icon {
+    width: 38px; height: 38px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .trust-icon svg { width: 18px; height: 18px; stroke: var(--cyan); fill: none; stroke-width: 1.8; }
+  .trust-label { font-weight: 600; font-size: 11px; line-height: 1.4; }
+
+  /* ── REFERRAL BANNER ── */
+  .referral {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 0 40px;
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .referral-icon {
+    width: 56px; height: 56px;
+    background: rgba(59,130,246,.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .referral-icon svg { width: 28px; height: 28px; stroke: var(--cyan); fill: none; stroke-width: 1.8; }
+  .referral-text { flex: 1; }
+  .referral-text p { font-size: 13px; color: rgba(255,255,255,.7); }
+  .referral-text strong { font-size: 28px; font-weight: 900; color: var(--white); display: block; line-height: 1.1; }
+  .referral-text span { font-size: 13px; color: rgba(255,255,255,.6); }
+
+  .btn-learn {
+    white-space: nowrap;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,.4);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: background .2s;
+    margin-left: auto;
+  }
+  .btn-learn:hover { background: rgba(255,255,255,.08); }
+
+  /* ── WHY CHOOSE ── */
+  .why-section {
+    text-align: center;
+    padding: 72px 40px 48px;
+  }
+  .why-section h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+  .why-section p { font-size: 15px; color: var(--gray); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px 40px 0;
+  }
+
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 22px;
+  }
+  .feature-card-icon {
+    width: 44px; height: 44px;
+    background: rgba(59,130,246,.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .feature-card-icon svg { width: 22px; height: 22px; stroke: var(--cyan); fill: none; stroke-width: 1.8; }
+  .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .feature-card p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+  /* ── COVERAGE BANNER ── */
+  .coverage-banner {
+    margin: 48px 40px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .coverage-banner p { font-size: 18px; font-weight: 700; max-width: 340px; line-height: 1.4; }
+
+  .btn-coverage {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--blue-lt);
+    color: var(--white);
+    border: none;
+    padding: 14px 26px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s;
+  }
+  .btn-coverage:hover { background: #1d4ed8; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060c1a;
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding: 56px 40px 32px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr 1.2fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+
+  .footer-brand p { font-size: 13px; color: var(--gray); margin-top: 14px; line-height: 1.7; }
+
+  .footer-col h4 { font-size: 13px; font-weight: 700; margin-bottom: 18px; color: var(--white); }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { font-size: 13px; color: var(--gray); transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+
+  .contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 13px; color: var(--gray); }
+  .contact-item svg { width: 16px; height: 16px; stroke: var(--cyan); fill: none; stroke-width: 1.8; flex-shrink: 0; margin-top: 2px; }
+
+  .hours-row { font-size: 13px; color: var(--gray); margin-bottom: 8px; }
+  .hours-row span { color: var(--white); font-weight: 500; }
+
+  .social-links { display: flex; gap: 12px; margin-top: 20px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity .2s;
+  }
+  .social-btn:hover { opacity: .85; }
+  .fb { background: #1877f2; }
+  .ig { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+  .li { background: #0a66c2; }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    font-size: 12px;
+    color: var(--gray);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* WhatsApp FAB */
+  .whatsapp-fab {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 52px; height: 52px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(37,211,102,.4);
+    z-index: 200;
+    transition: transform .2s;
+  }
+  .whatsapp-fab:hover { transform: scale(1.08); }
+  .whatsapp-fab svg { width: 28px; height: 28px; fill: white; }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { gap: 16px; font-size: 13px; }
+    .hero { padding: 48px 20px 60px; }
+    .referral { margin: 0 20px; flex-wrap: wrap; }
+    .features-grid { grid-template-columns: repeat(2,1fr); padding: 32px 20px 0; }
+    .coverage-banner { margin: 40px 20px; flex-direction: column; align-items: flex-start; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    footer { padding: 40px 20px 24px; }
+    .why-section { padding: 56px 20px 36px; }
+  }
+
+  @media (max-width: 560px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 28px; }
+    .trust-bar { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+        <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+        <circle cx="12" cy="20" r="1" fill="#60a5fa"/>
+      </svg>
+      <span class="logo-brand">GRAY<span>TECH</span></span>
+    </div>
+    <div class="logo-sub">S Y S T E M S</div>
+  </div>
+
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Coverage</a>
+    <a href="#">Packages</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+    <button class="btn-quote">Get a Quote</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Reliable Internet.<br><span class="blue">Built for Performance.</span></h1>
+    <p class="hero-sub">High-speed wireless and fibre connectivity across Gauteng. Stable. Secure. Always Connected.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Check Coverage
+      </button>
+      <button class="btn-outline">Get a Quote</button>
+    </div>
+
+    <div class="trust-bar">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <span class="trust-label">High Speed<br>Connections</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+        </div>
+        <span class="trust-label">Reliable<br>Network</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="trust-label">Local Support<br>That Cares</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span class="trust-label">Business &amp; Home<br>Solutions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERRAL BANNER -->
+<div class="referral">
+  <div class="referral-icon">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  </div>
+  <div class="referral-text">
+    <p>Refer a friend and get</p>
+    <strong>R100</strong>
+    <span>off your next month's package</span>
+  </div>
+  <button class="btn-learn">Learn More &nbsp;→</button>
+</div>
+
+<!-- WHY CHOOSE -->
+<section class="why-section">
+  <h2>Why Choose GrayTech Systems?</h2>
+  <p>We deliver more than just internet. We deliver peace of mind.</p>
+</section>
+
+<div class="features-grid">
+  <div class="feature-card">
+    <div class="feature-card-icon">
+      <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#60a5fa" stroke="none"/></svg>
+    </div>
+    <h3>Reliable Network</h3>
+    <p>Enterprise-grade infrastructure for uninterrupted connectivity.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-card-icon">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </div>
+    <h3>Fast &amp; Stable</h3>
+    <p>High-speed internet with low latency for streaming, gaming and business.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-card-icon">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <h3>Local Support</h3>
+    <p>Real people, real support. We're here when you need us most.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-card-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <h3>Secure &amp; Trusted</h3>
+    <p>Your connection is protected with advanced security and monitoring.</p>
+  </div>
+</div>
+
+<!-- COVERAGE CTA BANNER -->
+<div class="coverage-banner">
+  <p>Proudly connecting homes and businesses across Gauteng.</p>
+  <button class="btn-coverage">
+    Check Coverage &nbsp;→
+  </button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-top">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <circle cx="12" cy="20" r="1" fill="#60a5fa"/>
+          </svg>
+          <span class="logo-brand">GRAY<span>TECH</span></span>
+        </div>
+        <div class="logo-sub">S Y S T E M S</div>
+      </div>
+      <p>Delivering reliable, high-speed Internet solutions across Gauteng with a focus on performance, stability and customer satisfaction.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Coverage</a></li>
+        <li><a href="#">Packages</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        087 701 9055
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        071 234 4476 (WhatsApp)
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        info@graytechsystems.co.za
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        100 Waterford Drive,<br>Fourways, Sandton, 2191
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Business Hours</h4>
+      <p class="hours-row">Mon – Fri: <span>8:00am – 4:00pm</span></p>
+      <p class="hours-row">Saturday: <span>8:00am – 12:00pm</span></p>
+      <p class="hours-row">Sunday: <span>Closed</span></p>
+      <div class="social-links">
+        <div class="social-btn fb">f</div>
+        <div class="social-btn ig">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="white" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <div class="social-btn li">in</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 GrayTech Systems (Pty) Ltd. All rights reserved.</span>
+    <span>Customer Login: <a href="https://accounts.graytechsystems.co.za" style="color:var(--cyan)">accounts.graytechsystems.co.za</a></span>
+  </div>
+</footer>
+
+<!-- WhatsApp FAB -->
+<div class="whatsapp-fab">
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</div>
+
+</body>
+</html>

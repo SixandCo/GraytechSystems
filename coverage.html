@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check Your Coverage – GrayTech Systems</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  
+  <!-- Leaflet CSS (for map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="css/coverage.css" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <div class="logo">
+      <div class="logo-top">
+        <a href="index.html" class="logo-link">
+  <img 
+    src="img/Logo-400×120.png" 
+    alt="GrayTech Systems" 
+    class="logo-image"
+    width="180"
+    height="54"
+  />
+</a>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+	  <a href="about.html">About Us</a>
+	   <a href="services.html">Services</a>
+      <a href="coverage.html" class="active">Coverage</a>
+      <a href="contact.html">Contact</a>
+      <button class="btn-quote">Get a Quote</button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="coverage-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="breadcrumb-trail">
+        <a href="index.html">Home</a>
+        <span>&rsaquo;</span>
+        <span class="current">Coverage</span>
+      </div>
+      <div class="hero-content">
+        <h1>Check Your Coverage</h1>
+        <h2>Fibre Internet Across Gauteng</h2>
+        <p>Enter your suburb to see if we can connect you to our high-speed fibre network.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 1: COVERAGE CHECKER ===== -->
+  <section class="coverage-checker" id="step1">
+    <div class="coverage-checker-container">
+      <div class="checker-box">
+        <div class="checker-progress">
+          <span class="step-indicator active">1</span>
+          <span class="step-line"></span>
+          <span class="step-indicator">2</span>
+          <span class="step-line"></span>
+          <span class="step-indicator">3</span>
+        </div>
+        
+        <div class="checker-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h3>Is Your Area Covered?</h3>
+        <p>Enter your suburb or use your location</p>
+        
+        <div class="checker-input-group">
+          <div class="input-wrapper">
+            <input type="text" id="searchInput" placeholder="e.g., Sandton, Fourways, Midrand..." autocomplete="off" aria-label="Search for your suburb" />
+            <button id="voiceSearchBtn" class="voice-btn" aria-label="Search by voice" title="Search by voice">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <button id="locationBtn" class="location-btn" aria-label="Use my location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Use My Location
+          </button>
+          <button id="coverageCheckBtn" class="check-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            Check
+          </button>
+        </div>
+        
+        <div id="coverageResult" class="coverage-result"></div>
+        <div id="packageDisplay" class="package-display"></div>
+        <div id="comingSoonForm" class="coming-soon-form-wrapper"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 2: MAP SECTION ===== -->
+  <section class="map-section" id="step2">
+    <div class="map-container">
+      <div class="map-header">
+        <div>
+          <h3>📍 Pin Your Location</h3>
+          <p>Click anywhere on the map or use the pin button</p>
+        </div>
+        <button id="pinMapBtn" class="pin-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Pin My Location
+        </button>
+      </div>
+      <div id="coverageMap" class="coverage-map"></div>
+      <div id="mapResult" class="map-result"></div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 3: LEAD CAPTURE FORM ===== -->
+  <section class="lead-section" id="step3" style="display:none;">
+    <div class="lead-container">
+      <div class="lead-box">
+        <div class="lead-header">
+          <span class="lead-badge">📝 Step 3 of 3</span>
+          <h2>Almost There!</h2>
+          <p>Complete your details and we'll get you connected.</p>
+        </div>
+        
+        <form id="leadForm" class="lead-form" novalidate>
+          <!-- Hidden fields -->
+          <input type="hidden" id="leadArea" name="area" value="" />
+          <input type="hidden" id="leadPackage" name="package" value="" />
+          <input type="hidden" id="leadSegmentation" name="segmentation" value="" />
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="leadName">Full Name <span class="required">*</span></label>
+              <input type="text" id="leadName" name="name" placeholder="John Doe" required />
+              <small class="error-message" id="nameError">Please enter your full name</small>
+            </div>
+            <div class="form-group">
+              <label for="leadEmail">Email Address <span class="required">*</span></label>
+              <input type="email" id="leadEmail" name="email" placeholder="john@example.com" required />
+              <small class="error-message" id="emailError">Please enter a valid email</small>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="leadPhone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="leadPhone" name="phone" placeholder="082 123 4567" required />
+              <small class="error-message" id="phoneError">Please enter a valid phone number</small>
+            </div>
+            <div class="form-group">
+              <label for="leadAddress">Street Address</label>
+              <input type="text" id="leadAddress" name="address" placeholder="123 Main Street, Sandton" />
+            </div>
+          </div>
+          
+          <div class="form-group full-width">
+            <label for="leadNotes">Additional Notes (Optional)</label>
+            <textarea id="leadNotes" name="notes" rows="3" placeholder="Any special requirements or questions..."></textarea>
+          </div>
+          
+          <div class="form-group full-width">
+            <label class="checkbox-label">
+              <input type="checkbox" id="leadConsent" name="consent" required />
+              <span>I consent to GrayTech Systems contacting me regarding this enquiry. <span class="required">*</span></span>
+            </label>
+            <small class="error-message" id="consentError">Please confirm your consent</small>
+          </div>
+          
+          <div class="form-summary" id="formSummary">
+            <div class="summary-item">
+              <span class="summary-label">📍 Area</span>
+              <span class="summary-value" id="summaryArea">-</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">⚡ Package</span>
+              <span class="summary-value" id="summaryPackage">-</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">🏷️ Tier</span>
+              <span class="summary-value" id="summaryTier">-</span>
+            </div>
+          </div>
+          
+          <button type="submit" class="submit-btn" id="submitLead">
+            <span>Submit Application</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+          
+          <p class="form-security">
+            🔒 Your information is secure and will only be used for this enquiry.
+          </p>
+        </form>
+        
+        <div id="formSuccess" class="form-success" style="display:none;">
+          <div class="success-icon">🎉</div>
+          <h3>Application Submitted!</h3>
+          <p>Thank you for choosing GrayTech Systems. One of our team members will contact you within <strong>24 hours</strong> to finalize your connection.</p>
+          <div class="success-details">
+            <div class="detail-item">
+              <span>📧 Confirmation sent to:</span>
+              <strong id="confirmEmail">-</strong>
+            </div>
+            <div class="detail-item">
+              <span>📋 Reference:</span>
+              <strong id="confirmReference">-</strong>
+            </div>
+          </div>
+          <a href="index.html" class="btn-home">← Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COVERAGE AREAS ===== -->
+  <section class="regions-section">
+    <div class="regions-container">
+      <div class="section-header">
+        <h5>Coverage Areas</h5>
+        <h2>Fibre Across Gauteng</h2>
+        <p>We're connecting homes and businesses across 5 regions</p>
+      </div>
+
+      <div class="region-tabs">
+        <button class="region-tab active" data-region="all">All Areas</button>
+        <button class="region-tab" data-region="johannesburg">Johannesburg</button>
+        <button class="region-tab" data-region="pretoria">Pretoria</button>
+        <button class="region-tab" data-region="east-rand">East Rand</button>
+        <button class="region-tab" data-region="west-rand">West Rand</button>
+        <button class="region-tab" data-region="vaal">Vaal Triangle</button>
+        <button class="region-tab" data-region="special">⭐ Special</button>
+      </div>
+
+      <div class="region-grid-container" id="regionGridContainer">
+        <!-- Dynamic region grid rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PACKAGE PRICING ===== -->
+  <section class="pricing-section">
+    <div class="pricing-container">
+      <div class="section-header">
+        <h5>Packages & Pricing</h5>
+        <h2>Choose Your Speed</h2>
+        <p>All packages include unlimited data, free installation, and 24/7 support</p>
+      </div>
+
+      <div class="pricing-grid" id="pricingGrid">
+        <!-- Dynamic packages rendered by JS -->
+      </div>
+
+      <div class="pricing-note">
+        <p>* Prices are monthly and exclude VAT. Terms and conditions apply.</p>
+        <p>** Special areas (Cosmo City, Bloubosrand, Zandspruit) have different pricing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="coverage-cta">
+    <div class="coverage-cta-container">
+      <h2>Don't See Your Area?</h2>
+      <p>We're constantly expanding. Contact us to check if we can connect you.</p>
+      <a href="contact.html" class="cta-btn">Contact Us →</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-top">
+             <a href="index.html" class="footer-logo-link">
+          <img 
+            src="img/Logo-500×150.png" 
+            alt="GrayTech Systems" 
+            class="footer-logo-image"
+            width="180"
+            height="54"
+          />
+        </a>
+          </div>
+        </div>
+        <p>Delivering reliable, high-speed Internet solutions across Gauteng with a focus on performance, stability and customer satisfaction.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="coverage.html">Coverage</a></li>
+          <li><a href="#">Packages</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          087 701 9055
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          071 234 4476 (WhatsApp)
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          info@graytechsystems.co.za
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          100 Waterford Drive,<br>Fourways, Sandton, 2191
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Business Hours</h4>
+        <p class="hours-row">Mon – Fri: <span>8:00am – 4:00pm</span></p>
+        <p class="hours-row">Saturday: <span>8:00am – 12:00pm</span></p>
+        <p class="hours-row">Sunday: <span>Closed</span></p>
+        <div class="social-links">
+          <div class="social-btn fb">f</div>
+          <div class="social-btn ig">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="white" stroke-width="2"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="social-btn li">in</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> GrayTech Systems (Pty) Ltd. All rights reserved.</span>
+      <span>Customer Login: <a href="https://accounts.graytechsystems.co.za" style="color:var(--cyan)">accounts.graytechsystems.co.za</a></span>
+    </div>
+  </footer>
+
+  <!-- ===== WHATSAPP FAB ===== -->
+  <div class="whatsapp-fab">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script src="js/main.js"></script>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Coverage Application -->
+  <script src="js/coverage.js"></script>
+  
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -102,6 +102,8 @@
 
 .coverage-hero .hero-content {
   max-width: 520px;
+  overflow: visible;
+  word-wrap: break-word;
 }
 
 .coverage-hero .breadcrumb-trail {
@@ -132,6 +134,8 @@
   letter-spacing: -1px;
   line-height: 1.08;
   margin-bottom: 8px;
+  overflow: visible;
+  word-wrap: break-word;
 }
 
 .coverage-hero h2 {
@@ -139,6 +143,8 @@
   font-weight: 600;
   color: var(--cyan);
   margin-bottom: 12px;
+  overflow: visible;
+  word-wrap: break-word;
 }
 
 .coverage-hero p {
@@ -146,6 +152,8 @@
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.7;
   max-width: 460px;
+  overflow: visible;
+  word-wrap: break-word;
 }
 
 /* ============================================
@@ -153,7 +161,7 @@
    ============================================ */
 .coverage-checker {
   padding: 0 40px 60px;
-  margin-top: -40px;
+  margin-top: -20px;
   position: relative;
   z-index: 2;
 }
@@ -586,6 +594,7 @@
   background: rgba(59, 130, 246, 0.04);
 }
 
+/* Package Badge - Fixed - No overlap */
 .package-badge {
   position: absolute;
   top: -10px;
@@ -593,20 +602,27 @@
   transform: translateX(-50%);
   background: var(--cyan);
   color: var(--navy);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 4px 16px;
+  letter-spacing: 0.5px;
+  padding: 3px 12px;
   border-radius: 20px;
+  white-space: nowrap;
+  z-index: 2;
 }
 
 .package-speed {
   font-size: 22px;
   font-weight: 800;
   color: var(--white);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   letter-spacing: -0.5px;
+  padding-top: 12px; /* Space for badge */
+}
+
+.package-card.featured .package-speed {
+  padding-top: 16px; /* More space when badge is present */
 }
 
 .package-price {
@@ -1174,6 +1190,7 @@
   background: rgba(59, 130, 246, 0.04);
 }
 
+/* Pricing Badge - Fixed - No overlap */
 .pricing-badge {
   position: absolute;
   top: -10px;
@@ -1181,20 +1198,27 @@
   transform: translateX(-50%);
   background: var(--cyan);
   color: var(--navy);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 4px 16px;
+  letter-spacing: 0.5px;
+  padding: 3px 12px;
   border-radius: 20px;
+  white-space: nowrap;
+  z-index: 2;
 }
 
 .pricing-speed {
   font-size: 22px;
   font-weight: 800;
   color: var(--white);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   letter-spacing: -0.5px;
+  padding-top: 12px; /* Space for badge */
+}
+
+.pricing-card.featured .pricing-speed {
+  padding-top: 16px; /* More space when badge is present */
 }
 
 .pricing-price {
@@ -1652,8 +1676,9 @@ textarea:focus-visible {
 
 @media (max-width: 768px) {
   .coverage-hero {
-    min-height: 340px;
-    padding: 60px 0 50px;
+    min-height: auto;
+    padding: 60px 0 40px 0;
+    max-height: none;
   }
 
   .coverage-hero .hero-image {
@@ -1684,14 +1709,15 @@ textarea:focus-visible {
   .coverage-hero .hero-content {
     max-width: 100%;
     text-align: center;
+    padding-bottom: 10px;
   }
 
   .coverage-hero h1 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .coverage-hero h2 {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .coverage-hero p {
@@ -1703,22 +1729,48 @@ textarea:focus-visible {
     justify-content: center;
   }
 
+  /* Fix for globe overlay on mobile */
+  .globe-overlay {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 160px !important;
+    height: 160px !important;
+    margin: 0 auto 10px !important;
+    display: block !important;
+  }
+  
+  .globe-ring-1 { width: 150px; height: 150px; }
+  .globe-ring-2 { width: 130px; height: 130px; }
+  .globe-ring-3 { width: 110px; height: 110px; }
+  .cyber-globe-core { width: 80px; height: 80px; }
+  .globe-node { width: 18px; height: 18px; font-size: 7px; }
+  .node-pos-1 { top: 3px; left: 50%; transform: translateX(-50%); }
+  .node-pos-2 { top: 30px; right: 3px; }
+  .node-pos-3 { bottom: 40px; right: -1px; }
+  .node-pos-4 { bottom: 8px; left: 72%; }
+  .node-pos-5 { bottom: 22px; left: 14px; }
+  .node-pos-6 { top: 45px; left: 1px; }
+
+  /* Fix for coverage checker - add margin-top to prevent overlap */
   .coverage-checker {
     padding: 0 20px 40px;
+    margin-top: 0;
   }
 
   .checker-box {
-    padding: 32px 24px;
-    border-radius: 20px;
+    padding: 24px 16px;
+    border-radius: 16px;
   }
 
   .checker-box h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .search-input-wrapper input {
-    font-size: 16px;
-    padding: 16px 44px 16px 44px;
+    font-size: 14px;
+    padding: 12px 38px 12px 38px;
   }
 
   .search-actions {
@@ -1773,16 +1825,16 @@ textarea:focus-visible {
   .cta-container {
     flex-direction: column;
     text-align: center;
-    padding: 40px 32px;
-    gap: 24px;
+    padding: 32px 20px;
+    gap: 20px;
   }
 
   .cta-content h2 {
-    font-size: 26px;
+    font-size: 22px;
   }
 
   .cta-content p {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .cta-buttons {
@@ -1793,11 +1845,11 @@ textarea:focus-visible {
 
   .cta-primary,
   .cta-secondary {
-    padding: 14px 28px;
-    font-size: 14px;
+    padding: 12px 24px;
+    font-size: 13px;
     white-space: normal;
     flex: 1;
-    min-width: 180px;
+    min-width: 150px;
     text-align: center;
   }
 
@@ -1814,11 +1866,11 @@ textarea:focus-visible {
   }
 
   .lead-box {
-    padding: 32px 24px;
+    padding: 24px 16px;
   }
 
   .lead-title {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .checker-progress {
@@ -1826,13 +1878,13 @@ textarea:focus-visible {
   }
 
   .step-indicator {
-    width: 30px;
-    height: 30px;
-    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
   }
 
   .step-line {
-    width: 28px;
+    width: 20px;
   }
 
   .coming-soon-input-group {
@@ -1846,41 +1898,67 @@ textarea:focus-visible {
 
 @media (max-width: 480px) {
   .coverage-hero {
-    min-height: 300px;
-    padding: 50px 0 40px;
+    min-height: auto;
+    padding: 40px 0 30px 0;
   }
 
   .coverage-hero h1 {
-    font-size: 26px;
+    font-size: 24px;
   }
 
+  .coverage-hero h2 {
+    font-size: 15px;
+  }
+
+  .coverage-hero p {
+    font-size: 13px;
+  }
+
+  /* Globe even smaller on very small screens */
+  .globe-overlay {
+    width: 140px !important;
+    height: 140px !important;
+  }
+  
+  .globe-ring-1 { width: 130px; height: 130px; }
+  .globe-ring-2 { width: 110px; height: 110px; }
+  .globe-ring-3 { width: 90px; height: 90px; }
+  .cyber-globe-core { width: 70px; height: 70px; }
+  .globe-node { width: 16px; height: 16px; font-size: 6px; }
+  .node-pos-1 { top: 2px; left: 50%; transform: translateX(-50%); }
+  .node-pos-2 { top: 25px; right: 2px; }
+  .node-pos-3 { bottom: 35px; right: -1px; }
+  .node-pos-4 { bottom: 6px; left: 72%; }
+  .node-pos-5 { bottom: 18px; left: 12px; }
+  .node-pos-6 { top: 38px; left: 1px; }
+
   .checker-box {
-    padding: 24px 16px;
-    border-radius: 16px;
+    padding: 20px 12px;
+    border-radius: 14px;
   }
 
   .checker-title {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .search-input-wrapper input {
-    font-size: 14px;
-    padding: 14px 38px 14px 38px;
+    font-size: 13px;
+    padding: 10px 32px 10px 32px;
   }
 
   .search-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .voice-btn svg {
     width: 16px;
     height: 16px;
   }
 
-  .voice-btn svg {
-    width: 18px;
-    height: 18px;
-  }
-
   .clear-btn svg {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
   }
 
   .packages-grid {
@@ -1893,11 +1971,11 @@ textarea:focus-visible {
   }
 
   .pricing-speed {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .pricing-price {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .coverage-map {
@@ -1905,15 +1983,15 @@ textarea:focus-visible {
   }
 
   .cta-container {
-    padding: 32px 20px;
+    padding: 24px 16px;
   }
 
   .cta-content h2 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .cta-content p {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .cta-buttons {
@@ -1924,9 +2002,9 @@ textarea:focus-visible {
   .cta-primary,
   .cta-secondary {
     width: 100%;
-    max-width: 280px;
-    padding: 12px 24px;
-    font-size: 14px;
+    max-width: 260px;
+    padding: 10px 20px;
+    font-size: 13px;
   }
 
   .coming-soon-input-group {
@@ -1938,33 +2016,33 @@ textarea:focus-visible {
   }
 
   .action-btn {
-    font-size: 13px;
-    padding: 10px 16px;
+    font-size: 12px;
+    padding: 8px 14px;
   }
 
   .lead-box {
-    padding: 24px 16px;
+    padding: 20px 12px;
   }
 
   .lead-title {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .form-summary {
-    gap: 12px;
-    padding: 14px 16px;
+    gap: 10px;
+    padding: 12px 14px;
   }
 
   .summary-item {
-    gap: 8px;
+    gap: 6px;
   }
 
   .summary-icon {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .summary-value {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
@@ -2174,7 +2252,7 @@ textarea:focus-visible {
   100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* Node Positions */
+/* Node Positions - CORRECTED to match other pages */
 .node-pos-1 { top: 8px; left: 50%; transform: translateX(-50%); }
 .node-pos-2 { top: 55px; right: 12px; }
 .node-pos-3 { bottom: 85px; right: -2px; }
@@ -2239,38 +2317,4 @@ textarea:focus-visible {
   .node-pos-2 { top: 45px; right: 8px; }
   .node-pos-3 { bottom: 65px; right: -1px; }
   .node-pos-6 { top: 70px; left: 3px; }
-}
-
-@media (max-width: 768px) {
-  .coverage-hero {
-    padding: 20px 0 30px 0;
-    min-height: auto;
-    max-height: none;
-  }
-  
-  .globe-overlay {
-    position: relative;
-    top: auto;
-    right: auto;
-    transform: none;
-    width: 200px;
-    height: 200px;
-    margin: 10px auto 0;
-  }
-  
-  .coverage-hero .hero-content {
-    text-align: center;
-  }
-  
-  .globe-ring-1 { width: 180px; height: 180px; }
-  .globe-ring-2 { width: 150px; height: 150px; }
-  .globe-ring-3 { width: 120px; height: 120px; }
-  .cyber-globe-core { width: 90px; height: 90px; }
-  .globe-node { width: 20px; height: 20px; font-size: 8px; }
-  .node-pos-1 { top: 5px; }
-  .node-pos-2 { top: 35px; right: 5px; }
-  .node-pos-3 { bottom: 50px; right: -1px; }
-  .node-pos-4 { bottom: 12px; left: 72%; }
-  .node-pos-5 { bottom: 28px; left: 18px; }
-  .node-pos-6 { top: 55px; left: 2px; }
 }

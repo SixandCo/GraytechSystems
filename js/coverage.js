@@ -292,6 +292,7 @@ function renderResults(result, config) {
         `;
         resultContainer.className = 'coverage-result success';
         
+        // Only render packages if found
         renderPackages(result.packages, packageContainer);
         if (leadInput) leadInput.value = result.segmentation;
         
@@ -315,6 +316,7 @@ function renderResults(result, config) {
         `;
         resultContainer.className = 'coverage-result error';
         
+        // Clear packages when not found
         if (packageContainer) packageContainer.innerHTML = '';
         if (leadInput) leadInput.value = 'out-of-coverage';
         
@@ -719,28 +721,45 @@ function handleLeadSubmit(event) {
         });
     }
     
-    // Simulate API call
-    setTimeout(() => {
-        form.style.display = 'none';
-        successDiv.style.display = 'block';
-        document.getElementById('confirmEmail').textContent = formData.email;
-        document.getElementById('confirmReference').textContent = 'GTS-' + Date.now().toString().slice(-6);
-        
-        if (window.gtag) {
-            gtag('event', 'conversion', {
-                'send_to': 'G-XXXXXXXXXX',
-                'value': 1.0,
-                'currency': 'ZAR'
-            });
+    // Send to backend
+    fetch('leads.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            form.style.display = 'none';
+            successDiv.style.display = 'block';
+            document.getElementById('confirmEmail').textContent = formData.email;
+            document.getElementById('confirmReference').textContent = data.lead_id || 'GTS-' + Date.now().toString().slice(-6);
+            
+            if (window.gtag) {
+                gtag('event', 'conversion', {
+                    'send_to': 'G-XXXXXXXXXX',
+                    'value': 1.0,
+                    'currency': 'ZAR'
+                });
+            }
+        } else {
+            alert('There was an error submitting your application. Please try again.');
         }
-        
+    })
+    .catch(error => {
+        console.error('[GrayTech] Lead submission error:', error);
+        alert('Network error. Please check your connection and try again.');
+    })
+    .finally(() => {
         submitBtn.disabled = false;
         submitBtn.classList.remove('loading');
-    }, 1500);
+    });
 }
 
 // ================================================================
-// VOICE SEARCH
+// VOICE SEARCH - FIXED
 // ================================================================
 
 /**
@@ -750,46 +769,152 @@ function initVoiceSearch() {
     const voiceBtn = document.getElementById('voiceSearchBtn');
     if (!voiceBtn) return;
     
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    // Check if browser supports speech recognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
         voiceBtn.style.display = 'none';
         return;
     }
     
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = 'en-ZA';
     recognition.continuous = false;
     recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
     
-    voiceBtn.addEventListener('click', function() {
-        this.classList.toggle('listening');
-        if (this.classList.contains('listening')) {
+    let isListening = false;
+    
+    voiceBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (isListening) {
+            try {
+                recognition.stop();
+            } catch (error) {
+                console.warn('Error stopping recognition:', error);
+            }
+            this.classList.remove('listening');
+            isListening = false;
+            return;
+        }
+        
+        try {
             recognition.start();
-        } else {
-            recognition.stop();
+            this.classList.add('listening');
+            isListening = true;
+        } catch (error) {
+            console.warn('Speech recognition error:', error);
+            this.classList.remove('listening');
+            isListening = false;
+            
+            // Show feedback to user
+            const resultContainer = document.getElementById('coverageResult');
+            if (resultContainer) {
+                resultContainer.innerHTML = `
+                    <div class="result-error">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        <div>
+                            <strong>Voice search unavailable</strong>
+                            <span>Please type your suburb instead.</span>
+                        </div>
+                    </div>
+                `;
+                resultContainer.className = 'coverage-result error';
+            }
         }
     });
+    
+    recognition.onstart = function() {
+        voiceBtn.classList.add('listening');
+        isListening = true;
+    };
     
     recognition.onresult = function(event) {
         const last = event.results.length - 1;
         const transcript = event.results[last][0].transcript;
         const searchInput = document.getElementById('searchInput');
         
-        if (searchInput) {
-            searchInput.value = transcript;
+        if (searchInput && transcript) {
+            searchInput.value = transcript.trim();
+            // Trigger search
             const inputEvent = new Event('input', { bubbles: true });
             searchInput.dispatchEvent(inputEvent);
         }
-        voiceBtn.classList.remove('listening');
     };
     
-    recognition.onerror = function() {
+    recognition.onerror = function(event) {
+        console.warn('Speech recognition error:', event.error);
         voiceBtn.classList.remove('listening');
+        isListening = false;
+        
+        // Show feedback to user for permission errors
+        if (event.error === 'not-allowed') {
+            const resultContainer = document.getElementById('coverageResult');
+            if (resultContainer) {
+                resultContainer.innerHTML = `
+                    <div class="result-error">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        <div>
+                            <strong>Microphone access denied</strong>
+                            <span>Please allow microphone access or type your suburb manually.</span>
+                        </div>
+                    </div>
+                `;
+                resultContainer.className = 'coverage-result error';
+            }
+        }
     };
     
     recognition.onend = function() {
         voiceBtn.classList.remove('listening');
+        isListening = false;
     };
+}
+
+// ================================================================
+// MAP TOGGLE - FIXED
+// ================================================================
+
+/**
+ * Initializes map toggle functionality
+ */
+function initMapToggle() {
+    const showMapBtn = document.getElementById('showMapBtn');
+    const hideMapBtn = document.getElementById('hideMapBtn');
+    const mapSection = document.getElementById('mapSection');
+    
+    if (showMapBtn && mapSection) {
+        showMapBtn.addEventListener('click', function() {
+            mapSection.style.display = 'block';
+            mapSection.classList.add('visible');
+            // Refresh map if it exists
+            if (window.mapInstance) {
+                setTimeout(() => {
+                    window.mapInstance.invalidateSize();
+                }, 300);
+            }
+            // Scroll to map
+            setTimeout(() => {
+                mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    }
+    
+    if (hideMapBtn && mapSection) {
+        hideMapBtn.addEventListener('click', function() {
+            mapSection.style.display = 'none';
+            mapSection.classList.remove('visible');
+        });
+    }
 }
 
 // ================================================================
@@ -805,6 +930,12 @@ async function initSearchEngine(config) {
     if (!input) {
         console.warn('[GrayTech] Input field not found');
         return { coverageData, executeSearch: () => {} };
+    }
+    
+    // Clear packages initially
+    const packageContainer = document.getElementById(config.packageContainer);
+    if (packageContainer) {
+        packageContainer.innerHTML = '';
     }
     
     function executeSearch(query) {
@@ -901,6 +1032,16 @@ async function initSearchEngine(config) {
         if (!query.trim()) {
             const container = document.querySelector('.autocomplete-container');
             if (container) container.remove();
+            // Clear results and packages when input is cleared
+            const resultContainer = document.getElementById(config.resultContainer);
+            if (resultContainer) {
+                resultContainer.innerHTML = '';
+                resultContainer.className = '';
+            }
+            const packageContainer = document.getElementById(config.packageContainer);
+            if (packageContainer) {
+                packageContainer.innerHTML = '';
+            }
             return;
         }
         const matches = filterAreas(query, coverageData);
@@ -996,6 +1137,9 @@ async function initMapModule(config) {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapInstance);
+    
+    // Store map instance globally for refresh
+    window.mapInstance = mapInstance;
     
     mapInstance.on('click', function(e) {
         const { lat, lng } = e.latlng;
@@ -1237,15 +1381,25 @@ async function initApp() {
             }
         });
         
+        // Initialize map toggle
+        initMapToggle();
+        
+        // Initialize voice search
         initVoiceSearch();
+        
+        // Initialize location detection
         initLocationDetection();
+        
+        // Initialize region tabs
         initRegionTabs(coverageData);
         
+        // Lead form submission
         const leadForm = document.getElementById('leadForm');
         if (leadForm) {
             leadForm.addEventListener('submit', handleLeadSubmit);
         }
         
+        // Package button click handlers
         document.addEventListener('click', function(e) {
             const packageBtn = e.target.closest('.package-btn, .pricing-btn');
             if (packageBtn) {

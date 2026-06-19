@@ -127,7 +127,7 @@
           <a href="#quote-modal" class="btn-outline modal-trigger">Get a Quote</a>
         </div>
 
-        <!-- Features - IT Company Focus -->
+        <!-- Features - IT Company Focus (Fixed for mobile) -->
         <div class="hero-features">
           <div class="hero-feature">
             <div class="hero-feature-icon">
@@ -136,7 +136,7 @@
                 <rect x="9" y="9" width="6" height="6"/>
               </svg>
             </div>
-            <h4>Infrastructure</h4>
+            <p>Infrastructure</p>
           </div>
           <div class="hero-feature">
             <div class="hero-feature-icon">
@@ -145,7 +145,7 @@
                 <path d="M9 12l2 2 4-4"/>
               </svg>
             </div>
-            <h4>Cyber Security</h4>
+            <p>Cyber Security</p>
           </div>
           <div class="hero-feature">
             <div class="hero-feature-icon">
@@ -154,7 +154,7 @@
                 <circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
-            <h4>Local Support</h4>
+            <p>Local Support</p>
           </div>
           <div class="hero-feature">
             <div class="hero-feature-icon">
@@ -180,7 +180,79 @@
       <strong>Get Commission</strong>
       <span>on every successful referral</span>
     </div>
-    <button class="btn-learn">Learn More →</button>
+    <button class="btn-learn modal-trigger" data-modal="referral-modal">Learn More →</button>
+  </div>
+
+  <!-- ===== REFERRAL MODAL ===== -->
+  <div id="referral-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge">💰 Refer & Earn</span>
+        <h2>Refer a Business</h2>
+        <p>Fill in the details below and we'll get back to you with commission details.</p>
+      </div>
+      
+      <form id="referralForm" class="modal-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="referralName">Your Full Name <span class="required">*</span></label>
+            <input type="text" id="referralName" name="name" placeholder="John Doe" required />
+            <small class="error-message" id="referralNameError">Please enter your full name</small>
+          </div>
+          <div class="form-group">
+            <label for="referralEmail">Your Email <span class="required">*</span></label>
+            <input type="email" id="referralEmail" name="email" placeholder="john@example.com" required />
+            <small class="error-message" id="referralEmailError">Please enter a valid email</small>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="referralPhone">Your Phone <span class="required">*</span></label>
+            <input type="tel" id="referralPhone" name="phone" placeholder="082 123 4567" required />
+            <small class="error-message" id="referralPhoneError">Please enter a valid phone number</small>
+          </div>
+          <div class="form-group">
+            <label for="referralBusiness">Business Name <span class="required">*</span></label>
+            <input type="text" id="referralBusiness" name="business" placeholder="ABC Company" required />
+            <small class="error-message" id="referralBusinessError">Please enter the business name</small>
+          </div>
+        </div>
+        
+        <div class="form-group full-width">
+          <label for="referralMessage">Additional Notes</label>
+          <textarea id="referralMessage" name="message" rows="3" placeholder="Any additional information about the referral..."></textarea>
+        </div>
+        
+        <div class="form-group full-width">
+          <label class="checkbox-label">
+            <input type="checkbox" id="referralConsent" name="consent" required />
+            <span>I confirm I have permission to refer this business. <span class="required">*</span></span>
+          </label>
+          <small class="error-message" id="referralConsentError">Please confirm</small>
+        </div>
+        
+        <div id="referralFormStatus" class="form-status"></div>
+        
+        <button type="submit" class="submit-btn" id="referralSubmit">
+          <span>Submit Referral</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+        
+        <p class="form-security">🔒 Your information is secure and will only be used for this referral.</p>
+      </form>
+      
+      <div id="referralSuccess" class="form-success" style="display:none;">
+        <div class="success-icon">🎉</div>
+        <h3>Referral Submitted!</h3>
+        <p>Thank you for your referral! One of our team members will contact you within <strong>24 hours</strong> to discuss commission details.</p>
+        <button class="btn-home modal-close-success">← Back to Site</button>
+      </div>
+    </div>
   </div>
 
   <!-- ===== ABOUT SECTION ===== -->

@@ -434,7 +434,7 @@ nav {
 }
 
 /* ============================================
-   HERO FEATURES - IT Company Focus
+   HERO FEATURES - FIXED FOR MOBILE (2 rows, bigger icons)
    ============================================ */
 .hero-features {
   display: grid;
@@ -448,7 +448,7 @@ nav {
 .hero-feature {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-align: left;
   padding: 4px 0;
   transition: transform 0.3s ease;
@@ -459,15 +459,14 @@ nav {
 }
 
 .hero-feature-icon {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   background: rgba(59, 130, 246, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin-bottom: 0;
   transition: background 0.3s ease;
 }
 
@@ -476,32 +475,21 @@ nav {
 }
 
 .hero-feature-icon svg {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   stroke: var(--cyan);
   fill: none;
   stroke-width: 2;
 }
 
 .hero-feature h4 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--white);
   margin: 0;
-  white-space: nowrap;
 }
 
-.hero-feature p {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.5;
-  max-width: 200px;
-  margin: 0;
-}
-
-/* ============================================
-   HERO - RESPONSIVE
-   ============================================ */
+/* Desktop tablet */
 @media (max-width: 1024px) {
   .hero {
     min-height: 600px;
@@ -526,6 +514,7 @@ nav {
   }
 }
 
+/* Mobile - 2 rows, bigger icons */
 @media (max-width: 768px) {
   .hero {
     min-height: 580px;
@@ -579,32 +568,38 @@ nav {
     justify-content: center;
   }
 
+  /* HERO FEATURES - 2 ROWS, BIGGER ICONS */
   .hero-features {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     margin-top: 32px;
     padding-top: 28px;
-    text-align: center;
   }
 
   .hero-feature {
     justify-content: center;
+    text-align: center;
+    flex-direction: column;
     gap: 8px;
+    padding: 14px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .hero-feature-icon {
-    width: 24px;
-    height: 24px;
+    width: 52px;
+    height: 52px;
   }
 
   .hero-feature-icon svg {
-    width: 12px;
-    height: 12px;
+    width: 26px;
+    height: 26px;
   }
 
   .hero-feature h4 {
+    font-size: 14px;
     white-space: normal;
-    font-size: 13px;
   }
 
   .btn-primary,
@@ -614,6 +609,7 @@ nav {
   }
 }
 
+/* Small mobile */
 @media (max-width: 480px) {
   .hero {
     min-height: 500px;
@@ -643,34 +639,31 @@ nav {
   }
 
   .hero-features {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
-    text-align: center;
   }
 
   .hero-feature {
-    justify-content: center;
-    gap: 8px;
+    padding: 10px 8px;
   }
 
   .hero-feature-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero-feature-icon svg {
     width: 22px;
     height: 22px;
   }
 
-  .hero-feature-icon svg {
-    width: 11px;
-    height: 11px;
-  }
-
   .hero-feature h4 {
-    font-size: 13px;
-    white-space: normal;
+    font-size: 12px;
   }
 }
 
 /* ============================================
-   REFERRAL BANNER
+   REFERRAL BANNER - FIXED
    ============================================ */
 .referral {
   background: var(--card);
@@ -681,6 +674,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 .referral-icon {
@@ -704,11 +698,13 @@ nav {
 
 .referral-text { 
   flex: 1; 
+  min-width: 180px;
 }
 
 .referral-text p { 
   font-size: 13px; 
   color: rgba(255,255,255,.7); 
+  margin: 0;
 }
 
 .referral-text strong { 
@@ -727,7 +723,7 @@ nav {
 .btn-learn {
   white-space: nowrap;
   background: transparent;
-  border: 1.5px solid rgba(255,255,255,.4);
+  border: 1.5px solid rgba(255,255,255,.3);
   color: var(--white);
   padding: 10px 22px;
   border-radius: 8px;
@@ -737,12 +733,87 @@ nav {
   display: flex; 
   align-items: center; 
   gap: 6px;
-  margin-left: auto;
-  transition: background .2s;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  text-decoration: none;
 }
 
 .btn-learn:hover { 
-  background: rgba(255,255,255,.08); 
+  background: rgba(255,255,255,.08);
+  border-color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive - Referral Banner */
+@media (max-width: 768px) {
+  .referral {
+    margin: 0 20px;
+    padding: 20px 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .referral-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .referral-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .referral-text {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .referral-text strong {
+    font-size: 24px;
+  }
+
+  .referral-text span {
+    font-size: 12px;
+  }
+
+  .btn-learn {
+    white-space: normal;
+    justify-content: center;
+    padding: 12px 28px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .referral {
+    margin: 0 16px;
+    padding: 16px 20px;
+    gap: 12px;
+  }
+
+  .referral-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .referral-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .referral-text strong {
+    font-size: 20px;
+  }
+
+  .btn-learn {
+    font-size: 13px;
+    padding: 10px 20px;
+    max-width: 180px;
+  }
 }
 
 /* ============================================

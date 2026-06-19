@@ -258,7 +258,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.modal-trigger').forEach(trigger => {
     trigger.addEventListener('click', function(e) {
       e.preventDefault();
-      const modal = document.getElementById('quote-modal');
+      const modalId = this.dataset.modal || 'quote-modal';
+      const modal = document.getElementById(modalId);
       if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -271,51 +272,247 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Modal close buttons
+  // ============================================
+  // REFERRAL MODAL FUNCTIONALITY
+  // ============================================
+
+  // Close modal buttons
   document.querySelectorAll('.modal-close, .modal-close-success').forEach(btn => {
     btn.addEventListener('click', function() {
-      closeModal();
+      closeModal(this);
     });
   });
 
+  function closeModal(btn) {
+    const modal = btn.closest('.modal-overlay');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      // Reset form if success was shown
+      const form = modal.querySelector('form');
+      const success = modal.querySelector('.form-success');
+      if (form) form.style.display = 'block';
+      if (success) success.style.display = 'none';
+      // Reset form errors
+      modal.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+      modal.querySelectorAll('.success').forEach(el => el.classList.remove('success'));
+      modal.querySelectorAll('.error-message.visible').forEach(el => el.classList.remove('visible'));
+      // Reset status
+      const status = modal.querySelector('.form-status');
+      if (status) {
+        status.className = 'form-status';
+        status.textContent = '';
+      }
+    }
+  }
+
   // Close modal on overlay click
-  const modal = document.getElementById('quote-modal');
-  if (modal) {
+  document.querySelectorAll('.modal-overlay').forEach(modal => {
     modal.addEventListener('click', function(e) {
       if (e.target === this) {
-        closeModal();
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+        // Reset form if success was shown
+        const form = this.querySelector('form');
+        const success = this.querySelector('.form-success');
+        if (form) form.style.display = 'block';
+        if (success) success.style.display = 'none';
+        // Reset form errors
+        this.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        this.querySelectorAll('.success').forEach(el => el.classList.remove('success'));
+        this.querySelectorAll('.error-message.visible').forEach(el => el.classList.remove('visible'));
+        const status = this.querySelector('.form-status');
+        if (status) {
+          status.className = 'form-status';
+          status.textContent = '';
+        }
       }
     });
 
     // Close on Escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        // Reset form if success was shown
+        const form = modal.querySelector('form');
+        const success = modal.querySelector('.form-success');
+        if (form) form.style.display = 'block';
+        if (success) success.style.display = 'none';
+        // Reset form errors
+        modal.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        modal.querySelectorAll('.success').forEach(el => el.classList.remove('success'));
+        modal.querySelectorAll('.error-message.visible').forEach(el => el.classList.remove('visible'));
+        const status = modal.querySelector('.form-status');
+        if (status) {
+          status.className = 'form-status';
+          status.textContent = '';
+        }
       }
     });
-  }
+  });
 
-  function closeModal() {
-    const modal = document.getElementById('quote-modal');
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-      // Reset form if success was shown
-      const form = document.getElementById('quoteForm');
-      const success = document.getElementById('quoteSuccess');
-      if (form) form.style.display = 'block';
-      if (success) success.style.display = 'none';
-      // Reset form errors
-      document.querySelectorAll('#quoteForm .error').forEach(el => el.classList.remove('error'));
-      document.querySelectorAll('#quoteForm .success').forEach(el => el.classList.remove('success'));
-      document.querySelectorAll('#quoteForm .error-message.visible').forEach(el => el.classList.remove('visible'));
-      // Reset status
-      const status = document.getElementById('quoteFormStatus');
-      if (status) {
-        status.className = 'form-status';
-        status.textContent = '';
+  // ============================================
+  // REFERRAL FORM HANDLING
+  // ============================================
+
+  const referralForm = document.getElementById('referralForm');
+  if (referralForm) {
+    // Real-time validation
+    const referralFields = {
+      referralName: {
+        validate: (val) => val.trim().length >= 2,
+        error: 'Please enter your full name'
+      },
+      referralEmail: {
+        validate: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()),
+        error: 'Please enter a valid email address'
+      },
+      referralPhone: {
+        validate: (val) => /^[0-9+\s\-()]{10,15}$/.test(val.trim()),
+        error: 'Please enter a valid phone number'
+      },
+      referralBusiness: {
+        validate: (val) => val.trim().length >= 2,
+        error: 'Please enter the business name'
       }
+    };
+
+    Object.keys(referralFields).forEach(fieldName => {
+      const input = document.getElementById(fieldName);
+      if (!input) return;
+
+      input.addEventListener('blur', function() {
+        validateReferralField(fieldName, this);
+      });
+
+      input.addEventListener('input', function() {
+        const errorEl = document.getElementById(fieldName + 'Error');
+        if (errorEl) {
+          errorEl.classList.remove('visible');
+          this.classList.remove('error');
+          this.classList.remove('success');
+        }
+      });
+    });
+
+    function validateReferralField(fieldName, input) {
+      const field = referralFields[fieldName];
+      const errorEl = document.getElementById(fieldName + 'Error');
+      
+      if (!field || !errorEl) return;
+
+      const isValid = field.validate(input.value);
+      
+      if (!isValid && input.value.length > 0) {
+        errorEl.textContent = field.error;
+        errorEl.classList.add('visible');
+        input.classList.add('error');
+        input.classList.remove('success');
+      } else if (isValid && input.value.length > 0) {
+        errorEl.classList.remove('visible');
+        input.classList.remove('error');
+        input.classList.add('success');
+      } else {
+        errorEl.classList.remove('visible');
+        input.classList.remove('error');
+        input.classList.remove('success');
+      }
+
+      return isValid;
     }
+
+    // Form submission
+    referralForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const submitBtn = document.getElementById('referralSubmit');
+      const status = document.getElementById('referralFormStatus');
+      const successDiv = document.getElementById('referralSuccess');
+      
+      let isValid = true;
+      
+      // Validate all fields
+      Object.keys(referralFields).forEach(fieldName => {
+        const input = document.getElementById(fieldName);
+        if (input) {
+          const fieldValid = validateReferralField(fieldName, input);
+          if (!fieldValid) isValid = false;
+        }
+      });
+      
+      // Consent validation
+      const consent = document.getElementById('referralConsent');
+      const consentError = document.getElementById('referralConsentError');
+      if (consent && !consent.checked) {
+        if (consentError) consentError.classList.add('visible');
+        isValid = false;
+      } else if (consentError) {
+        consentError.classList.remove('visible');
+      }
+      
+      if (!isValid) {
+        status.className = 'form-status error';
+        status.textContent = 'Please fix the errors above before submitting.';
+        const firstError = form.querySelector('.error');
+        if (firstError) firstError.focus();
+        showToast('Please fix the errors above before submitting.', 'error');
+        return;
+      }
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      status.className = '';
+      status.textContent = '';
+      
+      // Collect data
+      const formData = {
+        name: document.getElementById('referralName').value.trim(),
+        email: document.getElementById('referralEmail').value.trim(),
+        phone: document.getElementById('referralPhone').value.trim(),
+        business: document.getElementById('referralBusiness').value.trim(),
+        message: document.getElementById('referralMessage').value.trim(),
+        consent: consent.checked,
+        type: 'referral',
+        timestamp: new Date().toISOString()
+      };
+      
+      // Send to backend
+      fetch('api/referral.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          form.style.display = 'none';
+          successDiv.style.display = 'block';
+          if (window.gtag) {
+            gtag('event', 'referral_submission', {
+              'business': formData.business
+            });
+          }
+          showToast('Referral submitted successfully!', 'success');
+        } else {
+          status.className = 'form-status error';
+          status.textContent = data.message || 'There was an error. Please try again.';
+          showToast(data.message || 'There was an error. Please try again.', 'error');
+        }
+      })
+      .catch(error => {
+        console.error('Referral submission error:', error);
+        status.className = 'form-status error';
+        status.textContent = 'Network error. Please check your connection and try again.';
+        showToast('Network error. Please check your connection and try again.', 'error');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+      });
+    });
   }
 
   // ============================================

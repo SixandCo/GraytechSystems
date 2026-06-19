@@ -3,64 +3,130 @@
    ============================================ */
 
 /* ============================================
-   CONTACT HERO
+   CONTACT HERO - MATCHES ABOUT & SERVICES
    ============================================ */
 .contact-hero {
   position: relative;
-  min-height: 320px;
+  min-height: 420px;
+  max-height: 550px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 60px 40px 80px;
   background: #030712;
+  padding: 0;
 }
 
+/* BACKGROUND LIGHT (DEPTH) */
 .contact-hero .hero-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 80% at 75% 50%, rgba(20, 60, 180, 0.3) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 40% at 85% 15%, rgba(59, 130, 246, 0.2) 0%, transparent 60%),
-    linear-gradient(135deg, #050c1a 0%, #0a1535 45%, #06102e 100%);
+  z-index: 1;
+  background: radial-gradient(
+    circle at 70% 50%, 
+    rgba(59, 130, 246, 0.2), 
+    transparent 60%
+  );
+  pointer-events: none;
 }
 
-.hero-inner {
+/* NETWORK GLOW EFFECT - Subtle dots */
+.contact-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 75% 40%, rgba(96, 165, 250, 0.6) 2px, transparent 2px),
+    radial-gradient(circle at 85% 55%, rgba(96, 165, 250, 0.4) 2px, transparent 2px),
+    radial-gradient(circle at 70% 65%, rgba(255, 170, 50, 0.5) 2px, transparent 2px);
+  background-repeat: no-repeat;
+  z-index: 1;
+  animation: pulseSubtle 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pulseSubtle {
+  from { opacity: 0.3; }
+  to { opacity: 0.7; }
+}
+
+/* HERO IMAGE - Full immersive */
+.contact-hero .hero-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.contact-hero .hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+  filter: brightness(0.7) contrast(1.1);
+  animation: slowZoom 25s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+/* FADE OVERLAY - Blends image into dark background */
+.contact-hero .hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #030712 0%,
+    rgba(3, 7, 18, 0.9) 25%,
+    rgba(3, 7, 18, 0.5) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* CONTENT ABOVE EVERYTHING */
+.contact-hero .hero-inner {
   position: relative;
   z-index: 2;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 40px;
 }
 
-.breadcrumb-trail {
+.contact-hero .hero-content {
+  max-width: 520px;
+}
+
+.contact-hero .breadcrumb-trail {
   font-size: 13px;
-  color: var(--gray);
-  margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.breadcrumb-trail a {
-  color: var(--gray);
+.contact-hero .breadcrumb-trail a {
+  color: rgba(255, 255, 255, 0.4);
   transition: color 0.2s;
 }
 
-.breadcrumb-trail a:hover {
+.contact-hero .breadcrumb-trail a:hover {
   color: var(--white);
 }
 
-.breadcrumb-trail .current {
+.contact-hero .breadcrumb-trail .current {
   color: var(--white);
-}
-
-.contact-hero .hero-content {
-  max-width: 600px;
 }
 
 .contact-hero h1 {
-  font-size: clamp(36px, 5vw, 52px);
+  font-size: clamp(32px, 4vw, 48px);
   font-weight: 800;
   letter-spacing: -1px;
   line-height: 1.08;
@@ -68,17 +134,17 @@
 }
 
 .contact-hero h2 {
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: clamp(17px, 1.5vw, 22px);
   font-weight: 600;
   color: var(--cyan);
   margin-bottom: 12px;
 }
 
 .contact-hero p {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.7;
-  max-width: 500px;
+  max-width: 460px;
 }
 
 /* ============================================
@@ -413,6 +479,15 @@
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
+  .contact-hero {
+    max-height: none;
+    min-height: 380px;
+  }
+
+  .contact-hero .hero-image {
+    width: 65%;
+  }
+
   .contact-container {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -421,20 +496,55 @@
 
 @media (max-width: 768px) {
   .contact-hero {
-    padding: 40px 20px 60px;
-    min-height: 260px;
+    min-height: 340px;
+    padding: 60px 0 50px;
+  }
+
+  .contact-hero .hero-image {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+  }
+
+  .contact-hero .hero-image img {
+    opacity: 1;
+    filter: brightness(0.5) contrast(1.2);
+  }
+
+  .contact-hero .hero-image::after {
+    background: linear-gradient(
+      180deg,
+      #030712 0%,
+      rgba(3, 7, 18, 0.9) 30%,
+      rgba(3, 7, 18, 0.6) 60%,
+      #030712 100%
+    );
+  }
+
+  .contact-hero .hero-inner {
+    padding: 0 20px;
+  }
+
+  .contact-hero .hero-content {
+    max-width: 100%;
+    text-align: center;
   }
 
   .contact-hero h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
 
   .contact-hero h2 {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .contact-hero p {
-    font-size: 15px;
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .contact-hero .breadcrumb-trail {
+    justify-content: center;
   }
 
   .contact-section {
@@ -484,11 +594,12 @@
 
 @media (max-width: 480px) {
   .contact-hero {
-    padding: 32px 16px 48px;
+    min-height: 300px;
+    padding: 50px 0 40px;
   }
 
   .contact-hero h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
 
   .contact-section {

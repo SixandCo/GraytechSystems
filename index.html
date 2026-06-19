@@ -656,7 +656,7 @@
       </div>
     </div>
 
-        <div class="footer-bottom">
+    <div class="footer-bottom">
       <span>© <span id="year"></span> GrayTech Systems (Pty) Ltd. All rights reserved.</span>
       <span>
         Designed by 
@@ -672,22 +672,6 @@
   <script src="js/main.js"></script>
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-    
-    // Mobile menu
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    hamburger.addEventListener('click', function() {
-      this.classList.toggle('active');
-      navLinks.classList.toggle('mobile-open');
-    });
-    
-    navLinks.querySelectorAll('a, .mobile-logo').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('mobile-open');
-      });
-    });
   </script>
 </body>
 </html>

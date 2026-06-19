@@ -2793,3 +2793,27 @@ textarea:focus-visible {
   .nav-links { gap: 20px; font-size: 13px; }
   .nav-links .btn-quote { padding: 6px 16px; font-size: 13px; }
 }
+
+/* ============================================
+   FOOTER - DESIGN CREDIT
+   ============================================ */
+.footer-design-credit {
+  font-size: 12px;
+  color: var(--gray);
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-design-credit:hover {
+  color: var(--cyan);
+}
+
+.footer-design-credit strong {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+}
+
+.footer-design-credit:hover strong {
+  color: var(--white);
+}

@@ -22,47 +22,36 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ============================================
-  // MOBILE NAVIGATION
+  // MOBILE NAVIGATION - FIXED
   // ============================================
-  createMobileMenu();
+  const hamburger = document.querySelector('.hamburger');
+  const navLinksContainer = document.querySelector('.nav-links');
 
-  function createMobileMenu() {
-    const nav = document.querySelector('nav');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (document.querySelector('.hamburger')) return;
-    
-    const hamburger = document.createElement('button');
-    hamburger.className = 'hamburger';
-    hamburger.setAttribute('aria-label', 'Toggle navigation menu');
-    hamburger.innerHTML = `
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    `;
-    
-    nav.insertBefore(hamburger, navLinks);
-    
+  if (hamburger && navLinksContainer) {
+    // Toggle menu on hamburger click
     hamburger.addEventListener('click', function(e) {
       e.stopPropagation();
-      const isOpen = navLinks.classList.toggle('mobile-open');
-      hamburger.classList.toggle('active');
-      hamburger.setAttribute('aria-expanded', isOpen);
+      const isOpen = navLinksContainer.classList.toggle('mobile-open');
+      this.classList.toggle('active');
+      this.setAttribute('aria-expanded', isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
-    
-    navLinks.querySelectorAll('a, .mobile-logo').forEach(el => {
+
+    // Close menu when clicking a link
+    navLinksContainer.querySelectorAll('a, .mobile-logo').forEach(el => {
       el.addEventListener('click', function() {
-        navLinks.classList.remove('mobile-open');
+        navLinksContainer.classList.remove('mobile-open');
         hamburger.classList.remove('active');
         document.body.style.overflow = '';
         hamburger.setAttribute('aria-expanded', 'false');
       });
     });
-    
+
+    // Close menu when clicking outside
     document.addEventListener('click', function(e) {
-      if (!nav.contains(e.target)) {
-        navLinks.classList.remove('mobile-open');
+      const nav = document.querySelector('nav');
+      if (nav && !nav.contains(e.target)) {
+        navLinksContainer.classList.remove('mobile-open');
         hamburger.classList.remove('active');
         document.body.style.overflow = '';
         hamburger.setAttribute('aria-expanded', 'false');

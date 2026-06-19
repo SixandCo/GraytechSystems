@@ -3,15 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us – GrayTech Systems</title>
   
-  <!-- Google Fonts -->
+  <!-- ============================================
+       PRIMARY META TAGS - SEO
+       ============================================ -->
+  <title>Contact GrayTech Systems | IT Solutions & Fibre Internet South Africa</title>
+  <meta name="description" content="Get in touch with GrayTech Systems for IT solutions, fibre internet, cybersecurity, and smart technology services in South Africa. Call, email, or visit us in Fourways, Sandton." />
+  <meta name="keywords" content="contact GrayTech Systems, IT solutions South Africa, fibre internet provider, cybersecurity services, IT support, smart home installation, Fourways IT company, Sandton IT solutions" />
+  <link rel="canonical" href="https://graytechsystems.co.za/contact.html" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- ============================================
+       OPEN GRAPH / SOCIAL SHARING
+       ============================================ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://graytechsystems.co.za/contact.html" />
+  <meta property="og:title" content="Contact GrayTech Systems | IT Solutions & Fibre Internet South Africa" />
+  <meta property="og:description" content="Get in touch with GrayTech Systems for IT solutions, fibre internet, cybersecurity, and smart technology services in South Africa. Call, email, or visit us in Fourways, Sandton." />
+  <meta property="og:image" content="https://graytechsystems.co.za/img/Logo-800×240.png" />
+  <meta property="og:image:width" content="800" />
+  <meta property="og:image:height" content="240" />
+  
+  <!-- ============================================
+       TWITTER CARD
+       ============================================ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contact GrayTech Systems | IT Solutions & Fibre Internet South Africa" />
+  <meta name="twitter:description" content="Get in touch with GrayTech Systems for IT solutions, fibre internet, cybersecurity, and smart technology services in South Africa. Call, email, or visit us in Fourways, Sandton." />
+  <meta name="twitter:image" content="https://graytechsystems.co.za/img/Logo-800×240.png" />
+  
+  <!-- ============================================
+       SCHEMA.ORG / STRUCTURED DATA
+       ============================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact GrayTech Systems",
+    "description": "Get in touch with GrayTech Systems for IT solutions, fibre internet, cybersecurity, and smart technology services in South Africa.",
+    "url": "https://graytechsystems.co.za/contact.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "GrayTech Systems",
+      "url": "https://graytechsystems.co.za"
+    },
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "GrayTech Systems",
+      "telephone": "+27877019055",
+      "email": "info@graytechsystems.co.za",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "100 Waterford Drive",
+        "addressLocality": "Fourways",
+        "addressRegion": "Gauteng",
+        "postalCode": "2191",
+        "addressCountry": "ZA"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "16:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:00",
+          "closes": "12:00"
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+27877019055",
+        "contactType": "sales",
+        "email": "info@graytechsystems.co.za",
+        "availableLanguage": ["English"]
+      }
+    }
+  }
+  </script>
+  
+  <!-- ============================================
+       BREADCRUMB STRUCTURED DATA
+       ============================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://graytechsystems.co.za/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contact",
+        "item": "https://graytechsystems.co.za/contact.html"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- ============================================
+       FAVICON
+       ============================================ -->
+  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/favicon-512x512.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a0f1e" />
+  
+  <!-- ============================================
+       GOOGLE FONTS
+       ============================================ -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   
-  <!-- Shared CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+    <!-- ============================================
+       FONT AWESOME FOR ICONS
+       ============================================ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   
-  <!-- Page-specific CSS -->
+  <!-- ============================================
+       CSS
+       ============================================ -->
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/contact.css" />
 </head>
 <body>
@@ -63,7 +184,7 @@
     </div>
   </nav>
 
-  <!-- ===== HERO SECTION - MATCHES ABOUT & SERVICES ===== -->
+    <!-- ===== HERO SECTION - WITH GLOBE OVERLAY ===== -->
   <section class="contact-hero" aria-label="Contact Us">
     <div class="hero-bg"></div>
     <div class="hero-image">
@@ -73,6 +194,61 @@
         loading="lazy"
       />
     </div>
+    
+    <!-- ===== FUTURISTIC GLOBE OVERLAY ===== -->
+    <div class="globe-overlay">
+      <!-- Outer Orbital Rings -->
+      <div class="globe-ring globe-ring-1"></div>
+      <div class="globe-ring globe-ring-2"></div>
+      <div class="globe-ring globe-ring-3"></div>
+
+      <!-- Core Globe - Vibrant Blue -->
+      <div class="cyber-globe-core">
+        <div class="globe-mesh"></div>
+        <div class="globe-pulse"></div>
+      </div>
+
+      <!-- Floating Nodes -->
+      <div class="globe-node node-pos-1" data-title="Wi-Fi">
+        <i class="fa-solid fa-wifi"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-2" data-title="Cloud">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-3" data-title="Mobile">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-4" data-title="Infrastructure">
+        <i class="fa-solid fa-laptop"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-5" data-title="Data">
+        <i class="fa-solid fa-server"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-6" data-title="Security">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+
+      <!-- Connection Lines -->
+      <svg class="globe-connections" viewBox="0 0 320 320">
+        <line x1="160" y1="18" x2="250" y2="58" class="conn-line" />
+        <line x1="250" y1="58" x2="298" y2="142" class="conn-line" />
+        <line x1="298" y1="142" x2="230" y2="258" class="conn-line" />
+        <line x1="230" y1="258" x2="155" y2="295" class="conn-line" />
+        <line x1="155" y1="295" x2="55" y2="252" class="conn-line" />
+        <line x1="55" y1="252" x2="18" y2="108" class="conn-line" />
+        <line x1="18" y1="108" x2="160" y2="18" class="conn-line" />
+        <line x1="160" y1="18" x2="298" y2="142" class="conn-line" />
+        <line x1="155" y1="295" x2="18" y2="108" class="conn-line" />
+        <circle cx="160" cy="155" r="3" class="center-dot" />
+      </svg>
+    </div>
+
     <div class="hero-inner">
       <div class="breadcrumb-trail">
         <a href="index.html">Home</a>
@@ -224,15 +400,21 @@
     <div class="map-container">
       <h3>Our Location</h3>
       <p>We are based in Fourways, Sandton, Gauteng.</p>
-      <div class="map-placeholder">
-        <div class="map-content">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          <p>100 Waterford Drive, Fourways, Sandton, 2191</p>
-          <a href="#" class="btn-map">View on Google Maps →</a>
-        </div>
+      <div class="map-wrapper">
+        <iframe
+          class="contact-map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3585.2356351792905!2d27.9841506!3d-26.025845099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95774a210eb9d7%3A0x2b468100931e41fe!2sGraytech%20Systems!5e0!3m2!1sen!2sza!4v1779399327553!5m2!1sen!2sza"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="GrayTech Systems Location - Fourways, Sandton"
+        >
+        </iframe>
+      </div>
+      <div class="map-actions">
+        <a href="https://www.google.com/maps/search/?api=1&query=100+Waterford+Drive+Fourways+Sandton" target="_blank" rel="noopener noreferrer" class="btn-map">
+          📍 Open in Google Maps →
+        </a>
       </div>
     </div>
   </section>

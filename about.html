@@ -146,7 +146,8 @@
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  
+    <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <!-- Shared CSS -->
   <link rel="stylesheet" href="css/style.css" />
   
@@ -202,12 +203,67 @@
     </div>
   </nav>
 
-  <!-- ===== HERO SECTION - PREMIUM BUT NOT OVERWHELMING ===== -->
+    <!-- ===== HERO SECTION - WITH GLOBE OVERLAY ===== -->
   <section class="about-hero">
     <div class="hero-bg"></div>
     <div class="hero-image">
       <img src="img/banner.jfif" alt="GrayTech Systems - About Us" />
     </div>
+    
+    <!-- ===== FUTURISTIC GLOBE OVERLAY ===== -->
+    <div class="globe-overlay">
+      <!-- Outer Orbital Rings -->
+      <div class="globe-ring globe-ring-1"></div>
+      <div class="globe-ring globe-ring-2"></div>
+      <div class="globe-ring globe-ring-3"></div>
+
+      <!-- Core Globe - Vibrant Blue -->
+      <div class="cyber-globe-core">
+        <div class="globe-mesh"></div>
+        <div class="globe-pulse"></div>
+      </div>
+
+      <!-- Floating Nodes -->
+      <div class="globe-node node-pos-1" data-title="Wi-Fi">
+        <i class="fa-solid fa-wifi"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-2" data-title="Cloud">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-3" data-title="Mobile">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-4" data-title="Infrastructure">
+        <i class="fa-solid fa-laptop"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-5" data-title="Data">
+        <i class="fa-solid fa-server"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-6" data-title="Security">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+
+      <!-- Connection Lines -->
+      <svg class="globe-connections" viewBox="0 0 320 320">
+        <line x1="160" y1="18" x2="250" y2="58" class="conn-line" />
+        <line x1="250" y1="58" x2="298" y2="142" class="conn-line" />
+        <line x1="298" y1="142" x2="230" y2="258" class="conn-line" />
+        <line x1="230" y1="258" x2="155" y2="295" class="conn-line" />
+        <line x1="155" y1="295" x2="55" y2="252" class="conn-line" />
+        <line x1="55" y1="252" x2="18" y2="108" class="conn-line" />
+        <line x1="18" y1="108" x2="160" y2="18" class="conn-line" />
+        <line x1="160" y1="18" x2="298" y2="142" class="conn-line" />
+        <line x1="155" y1="295" x2="18" y2="108" class="conn-line" />
+        <circle cx="160" cy="155" r="3" class="center-dot" />
+      </svg>
+    </div>
+
     <div class="hero-container">
       <div class="hero-content">
         <div class="breadcrumb-trail">

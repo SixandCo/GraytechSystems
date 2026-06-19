@@ -3,18 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Check Your Coverage – GrayTech Systems</title>
   
-  <!-- Google Fonts -->
+  <!-- ============================================
+       PRIMARY META TAGS - SEO
+       ============================================ -->
+  <title>Check Fibre Coverage in Gauteng | GrayTech Systems</title>
+  <meta name="description" content="Check if your suburb is covered by GrayTech Systems' high-speed fibre internet in Gauteng. Enter your area to find available packages and get connected today." />
+  <meta name="keywords" content="fibre coverage check, fibre internet Gauteng, check fibre availability, fibre coverage map, GrayTech Systems coverage, fibre packages, internet coverage South Africa" />
+  <link rel="canonical" href="https://graytechsystems.co.za/coverage.html" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- ============================================
+       OPEN GRAPH / SOCIAL SHARING
+       ============================================ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://graytechsystems.co.za/coverage.html" />
+  <meta property="og:title" content="Check Fibre Coverage in Gauteng | GrayTech Systems" />
+  <meta property="og:description" content="Check if your suburb is covered by GrayTech Systems' high-speed fibre internet in Gauteng. Enter your area to find available packages and get connected today." />
+  <meta property="og:image" content="https://graytechsystems.co.za/img/Logo-800×240.png" />
+  <meta property="og:image:width" content="800" />
+  <meta property="og:image:height" content="240" />
+  
+  <!-- ============================================
+       TWITTER CARD
+       ============================================ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Check Fibre Coverage in Gauteng | GrayTech Systems" />
+  <meta name="twitter:description" content="Check if your suburb is covered by GrayTech Systems' high-speed fibre internet in Gauteng. Enter your area to find available packages and get connected today." />
+  <meta name="twitter:image" content="https://graytechsystems.co.za/img/Logo-800×240.png" />
+  
+  <!-- ============================================
+       SCHEMA.ORG / STRUCTURED DATA
+       ============================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Fibre Coverage Checker",
+    "description": "Check if your suburb is covered by GrayTech Systems' high-speed fibre internet in Gauteng. Enter your area to find available packages and get connected today.",
+    "url": "https://graytechsystems.co.za/coverage.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "GrayTech Systems",
+      "url": "https://graytechsystems.co.za"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Fibre Coverage",
+      "description": "Fibre internet coverage checker for Gauteng, South Africa"
+    }
+  }
+  </script>
+  
+  <!-- ============================================
+       BREADCRUMB STRUCTURED DATA
+       ============================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://graytechsystems.co.za/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Coverage",
+        "item": "https://graytechsystems.co.za/coverage.html"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- ============================================
+       FAVICON
+       ============================================ -->
+  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/favicon-512x512.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a0f1e" />
+  
+  <!-- ============================================
+       GOOGLE FONTS
+       ============================================ -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   
-  <!-- Leaflet CSS (for map) -->
+    <!-- ============================================
+       FONT AWESOME FOR ICONS
+       ============================================ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- ============================================
+       LEAFTLET CSS (for map)
+       ============================================ -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
-  <!-- Shared CSS -->
+  <!-- ============================================
+       CSS
+       ============================================ -->
   <link rel="stylesheet" href="css/style.css" />
-  
-  <!-- Page-specific CSS -->
   <link rel="stylesheet" href="css/coverage.css" />
 </head>
 <body>
@@ -66,7 +159,7 @@
     </div>
   </nav>
 
-  <!-- ===== HERO SECTION - MATCHES ABOUT & SERVICES ===== -->
+    <!-- ===== HERO SECTION - WITH GLOBE OVERLAY ===== -->
   <section class="coverage-hero" aria-label="Coverage Checker">
     <div class="hero-bg"></div>
     <div class="hero-image">
@@ -76,6 +169,61 @@
         loading="lazy"
       />
     </div>
+    
+    <!-- ===== FUTURISTIC GLOBE OVERLAY ===== -->
+    <div class="globe-overlay">
+      <!-- Outer Orbital Rings -->
+      <div class="globe-ring globe-ring-1"></div>
+      <div class="globe-ring globe-ring-2"></div>
+      <div class="globe-ring globe-ring-3"></div>
+
+      <!-- Core Globe - Vibrant Blue -->
+      <div class="cyber-globe-core">
+        <div class="globe-mesh"></div>
+        <div class="globe-pulse"></div>
+      </div>
+
+      <!-- Floating Nodes -->
+      <div class="globe-node node-pos-1" data-title="Wi-Fi">
+        <i class="fa-solid fa-wifi"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-2" data-title="Cloud">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-3" data-title="Mobile">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-4" data-title="Infrastructure">
+        <i class="fa-solid fa-laptop"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-5" data-title="Data">
+        <i class="fa-solid fa-server"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-6" data-title="Security">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+
+      <!-- Connection Lines -->
+      <svg class="globe-connections" viewBox="0 0 320 320">
+        <line x1="160" y1="18" x2="250" y2="58" class="conn-line" />
+        <line x1="250" y1="58" x2="298" y2="142" class="conn-line" />
+        <line x1="298" y1="142" x2="230" y2="258" class="conn-line" />
+        <line x1="230" y1="258" x2="155" y2="295" class="conn-line" />
+        <line x1="155" y1="295" x2="55" y2="252" class="conn-line" />
+        <line x1="55" y1="252" x2="18" y2="108" class="conn-line" />
+        <line x1="18" y1="108" x2="160" y2="18" class="conn-line" />
+        <line x1="160" y1="18" x2="298" y2="142" class="conn-line" />
+        <line x1="155" y1="295" x2="18" y2="108" class="conn-line" />
+        <circle cx="160" cy="155" r="3" class="center-dot" />
+      </svg>
+    </div>
+
     <div class="hero-inner">
       <div class="breadcrumb-trail">
         <a href="index.html">Home</a>

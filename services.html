@@ -174,6 +174,9 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
   <!-- Shared CSS -->
   <link rel="stylesheet" href="css/style.css" />
   
@@ -229,7 +232,7 @@
     </div>
   </nav>
 
-  <!-- ===== HERO SECTION - WITH IMAGE ===== -->
+  <!-- ===== HERO SECTION - WITH IMAGE + GLOBE OVERLAY ===== -->
   <section class="services-hero" aria-label="Our Services">
     <div class="hero-bg"></div>
     <div class="hero-image">
@@ -239,16 +242,76 @@
         loading="lazy"
       />
     </div>
+    
+    <!-- ===== FUTURISTIC GLOBE OVERLAY ===== -->
+    <div class="globe-overlay">
+      <!-- Outer Orbital Rings -->
+      <div class="globe-ring globe-ring-1"></div>
+      <div class="globe-ring globe-ring-2"></div>
+      <div class="globe-ring globe-ring-3"></div>
+
+      <!-- Core Globe -->
+      <div class="cyber-globe-core">
+        <div class="globe-mesh"></div>
+        <div class="globe-pulse"></div>
+      </div>
+
+      <!-- Floating Nodes -->
+      <div class="globe-node node-pos-1" data-title="Wi-Fi">
+        <i class="fa-solid fa-wifi"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-2" data-title="Cloud">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-3" data-title="Mobile">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-4" data-title="Infrastructure">
+        <i class="fa-solid fa-laptop"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-5" data-title="Data">
+        <i class="fa-solid fa-server"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+      <div class="globe-node node-pos-6" data-title="Security">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div class="node-pulse-ring"></div>
+      </div>
+
+      <!-- Connection Lines -->
+      <svg class="globe-connections" viewBox="0 0 320 320">
+        <line x1="160" y1="18" x2="250" y2="58" class="conn-line" />
+        <line x1="250" y1="58" x2="298" y2="142" class="conn-line" />
+        <line x1="298" y1="142" x2="230" y2="258" class="conn-line" />
+        <line x1="230" y1="258" x2="155" y2="295" class="conn-line" />
+        <line x1="155" y1="295" x2="55" y2="252" class="conn-line" />
+        <line x1="55" y1="252" x2="18" y2="108" class="conn-line" />
+        <line x1="18" y1="108" x2="160" y2="18" class="conn-line" />
+        <line x1="160" y1="18" x2="298" y2="142" class="conn-line" />
+        <line x1="155" y1="295" x2="18" y2="108" class="conn-line" />
+        <circle cx="160" cy="155" r="3" class="center-dot" />
+      </svg>
+    </div>
+
     <div class="hero-inner">
-              <div class="breadcrumb-trail">
-          <a href="index.html">Home</a>
-          <span>&rsaquo;</span>
-          <span class="current">Services</span>
-        </div>
+      <div class="breadcrumb-trail">
+        <a href="index.html">Home</a>
+        <span>&rsaquo;</span>
+        <span class="current">Services</span>
+      </div>
       <div class="hero-content">
         <h1>Services</h1>
         <h2>Fast, Reliable Technology Solutions for Home &amp; Business</h2>
         <p>From high-speed internet connectivity to complete IT infrastructure management, GrayTech Systems delivers dependable technology solutions designed to keep you connected, productive, and secure.</p>
+        <!-- ===== 2 BUTTONS ADDED ===== -->
+        <div class="hero-cta-group">
+          <a href="coverage.html" class="hero-btn-primary">Explore Solutions →</a>
+          <a href="#quote-modal" class="hero-btn-secondary modal-trigger">Get a Quote</a>
+        </div>
       </div>
     </div>
   </section>
@@ -274,7 +337,7 @@
           </div>
           <h3>WiFi Solutions</h3>
           <p>Full coverage and seamless roaming for your home or business.</p>
-          <a href="#" class="service-btn">Learn More →</a>
+          <a href="#quote-modal" class="service-btn glow-btn modal-trigger">Get Connected →</a>
         </div>
 
         <!-- Service 2: Fibre Internet -->
@@ -289,7 +352,7 @@
           </div>
           <h3>Fibre Internet</h3>
           <p>Lightning-fast fibre from 50Mbps to 10Gbps.</p>
-          <a href="#" class="service-btn">Learn More →</a>
+          <a href="#quote-modal" class="service-btn glow-btn modal-trigger">Check Availability →</a>
         </div>
 
         <!-- Service 3: LTE & 5G -->
@@ -302,7 +365,7 @@
           </div>
           <h3>LTE &amp; 5G</h3>
           <p>High-speed mobile data with flexible contracts.</p>
-          <a href="#" class="service-btn">Learn More →</a>
+          <a href="#quote-modal" class="service-btn glow-btn modal-trigger">Get Connected →</a>
         </div>
 
         <!-- Service 4: Satellite Internet -->
@@ -314,7 +377,7 @@
           </div>
           <h3>Satellite Internet</h3>
           <p>Connect anywhere in South Africa. Perfect for rural areas.</p>
-          <a href="#" class="service-btn">Learn More →</a>
+          <a href="#quote-modal" class="service-btn glow-btn modal-trigger">Check Availability →</a>
         </div>
       </div>
     </div>
@@ -347,7 +410,7 @@
             <li>Data protection</li>
             <li>Security audits</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Explore Solution →</a>
         </div>
 
         <!-- Solution 2: IT Infrastructure -->
@@ -375,7 +438,7 @@
             <li>Router &amp; switch setup</li>
             <li>Firewall configuration</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Get Started →</a>
         </div>
 
         <!-- Solution 3: Smart Homes -->
@@ -397,7 +460,7 @@
             <li>Voice control integration</li>
             <li>Mobile app control</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Explore Solution →</a>
         </div>
 
         <!-- Solution 4: Access Control -->
@@ -418,7 +481,7 @@
             <li>Remote monitoring</li>
             <li>Integration with security</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Get Started →</a>
         </div>
 
         <!-- Solution 5: AI Integration -->
@@ -440,7 +503,7 @@
             <li>Process optimization</li>
             <li>Predictive insights</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Explore Solution →</a>
         </div>
 
         <!-- Solution 6: Remote Monitoring -->
@@ -461,7 +524,7 @@
             <li>Performance monitoring</li>
             <li>Detailed reporting</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Get Started →</a>
         </div>
 
         <!-- Solution 7: Backup Power -->
@@ -481,7 +544,7 @@
             <li>Automatic failover</li>
             <li>Professional installation</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Explore Solution →</a>
         </div>
 
         <!-- Solution 8: VoIP Systems -->
@@ -500,7 +563,7 @@
             <li>Mobile apps</li>
             <li>Save up to 60% on calls</li>
           </ul>
-          <a href="#" class="solution-btn">Learn More →</a>
+          <a href="#quote-modal" class="solution-btn glow-btn modal-trigger">Get Started →</a>
         </div>
       </div>
     </div>

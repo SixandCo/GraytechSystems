@@ -59,6 +59,102 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+
+  // ============================================
+// FIX FOR ZOOM/CENTERING ISSUES
+// ============================================
+
+(function() {
+    'use strict';
+    
+    // Function to check if any elements are off-center
+    function checkCentering() {
+        const wrapper = document.querySelector('.site-wrapper');
+        if (!wrapper) return;
+        
+        // Get the current viewport width
+        const viewportWidth = window.innerWidth;
+        
+        // Get the wrapper width
+        const wrapperWidth = wrapper.offsetWidth;
+        
+        // If wrapper is narrower than viewport, center it
+        if (wrapperWidth < viewportWidth) {
+            wrapper.style.marginLeft = 'auto';
+            wrapper.style.marginRight = 'auto';
+        }
+    }
+    
+    // Run on load
+    window.addEventListener('load', checkCentering);
+    
+    // Run on resize (including zoom)
+    window.addEventListener('resize', checkCentering);
+    
+    // Run on orientation change
+    window.addEventListener('orientationchange', function() {
+        setTimeout(checkCentering, 300);
+    });
+    
+    // Also check after a delay for any layout shifts
+    setTimeout(checkCentering, 500);
+    setTimeout(checkCentering, 1000);
+    
+    // Fix for the globe overlay position on zoom
+    function fixGlobePosition() {
+        const globe = document.querySelector('.globe-overlay');
+        if (!globe) return;
+        
+        const viewportWidth = window.innerWidth;
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        
+        // Adjust globe position based on viewport width
+        if (viewportWidth > 1800) {
+            globe.style.right = '12%';
+        } else if (viewportWidth > 1400) {
+            globe.style.right = '8%';
+        } else if (viewportWidth > 1200) {
+            globe.style.right = '5%';
+        } else if (viewportWidth > 768) {
+            globe.style.right = '3%';
+        } else {
+            globe.style.position = 'relative';
+            globe.style.right = 'auto';
+            globe.style.margin = '10px auto 0';
+        }
+    }
+    
+    window.addEventListener('resize', fixGlobePosition);
+    window.addEventListener('load', fixGlobePosition);
+    
+    // Fix for navigation on zoom
+    function fixNavigation() {
+        const nav = document.querySelector('nav');
+        if (!nav) return;
+        
+        const viewportWidth = window.innerWidth;
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        
+        // Ensure nav stays within bounds
+        if (viewportWidth > 1800) {
+            nav.style.maxWidth = '1400px';
+            nav.style.margin = '0 auto';
+        } else if (viewportWidth > 2200) {
+            nav.style.maxWidth = '1600px';
+            nav.style.margin = '0 auto';
+        } else {
+            nav.style.maxWidth = '100%';
+            nav.style.margin = '0';
+        }
+    }
+    
+    window.addEventListener('resize', fixNavigation);
+    window.addEventListener('load', fixNavigation);
+    
+})();
+
   // ============================================
   // SMOOTH SCROLL FOR INTERNAL LINKS
   // ============================================
@@ -720,3 +816,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
   console.log('✅ GrayTech Systems - All systems ready!');
 });
+
